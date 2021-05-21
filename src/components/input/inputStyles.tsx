@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
+
+export const inputStyles = StyleSheet.create({
     inputContainer: {
         color: '#FFF',
         width: '80%',

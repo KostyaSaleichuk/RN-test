@@ -1,13 +1,12 @@
- import React from 'react';
- import {View, StyleSheet} from 'react-native'
- import MyButton from './src/components/button/buttonComponent.tsx';
- import InputTextComp from './src/components/input/inputComponent.tsx';
- import LoginScreen from './src/features/login/loginScreen.tsx'
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
- function App() {
-    return(
-        <LoginScreen/>
-    )
- }
+import {MainNavigator} from './src/navigation/navigators/MainNavigator.tsx';
 
-export default App;
+
+export const App = () => {
+  return (
+    <MainNavigator/>
+  );
+}

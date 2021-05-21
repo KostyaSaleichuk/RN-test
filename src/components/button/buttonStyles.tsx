@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
+export const buttonStyles = StyleSheet.create({
      buttonContainer: {
         backgroundColor: "#000",
         height: 40,
