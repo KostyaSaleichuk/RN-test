@@ -15,13 +15,4 @@ export const feedsScreenStyles = StyleSheet.create({
         backgroundColor: '#FFF',
         marginTop: 15,
     },
-    feedsImage:{
-
-    },
-    feedsTextContainer:{
-
-    },
-    feedsText:{
-
-    },
-})
+});

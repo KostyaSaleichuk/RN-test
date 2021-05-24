@@ -3,19 +3,18 @@ import { TextInput } from 'react-native';
 
 import {inputStyles} from './inputStyles.tsx'
 
-
-export const InputText = (props) => {
-////
-    const [input, setInput] = useState('');
-////
-    return(
-        <TextInput
-            style={inputStyles.inputContainer}
-            placeholder={props.placeholder}
-            placeholderTextColor='#FFF'
-            value={input}
-            onChangeText={input => setInput(input)}
-            secureTextEntry={props.secureTextEntry}
-        />
-    )
+interface Props {
+    input: string;
+    secureTextEntry: boolean;
+    placeholder: string;
 };
+
+export const InputText = (props: Props) => (
+    <TextInput
+        style={inputStyles.inputContainer}
+        placeholder={props.placeholder}
+        placeholderTextColor='#FFF'
+        value={props.input}
+        secureTextEntry={props.secureTextEntry}
+    />
+);

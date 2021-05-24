@@ -5,8 +5,7 @@ import {MyButton} from '../../components/button/ButtonComponent.tsx';
 import {profileStyles} from './profileScreenStyles';
 
 
-export const ProfileScreen = () => {
-    return(
+export const ProfileScreen = () => (
     <View style={profileStyles.profileScreen}>
         <View style={profileStyles.profileContainer}>
             <Image style={profileStyles.profilePicture}/>
@@ -16,9 +15,8 @@ export const ProfileScreen = () => {
             </View>
         </View>
         <View style={profileStyles.buttonContainer}>
-            <MyButton text='Change theme to: light' />
-            <MyButton text='Logout' />
+            <MyButton butText='Change theme to: light' />
+            <MyButton butText='Logout' />
         </View>
     </View>
-    )
-};
+);

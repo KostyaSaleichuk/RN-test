@@ -8,13 +8,11 @@ import { ProfileScreen } from '../../features/profile/ProfileScreen.tsx';
 const Tab = createMaterialTopTabNavigator();
 
 
-export const MainNavigator = () => {
-    return(
-        <NavigationContainer>
-            <Tab.Navigator>
-                <Tab.Screen name="Feeds" component={FeedsScreen}/>
-                <Tab.Screen name="Profile" component={ProfileScreen}/>
-            </Tab.Navigator>
-        </NavigationContainer>
-    )
-}
+export const MainNavigator = () => (
+    <NavigationContainer>
+        <Tab.Navigator>
+            <Tab.Screen name="Feeds" component={FeedsScreen}/>
+            <Tab.Screen name="Profile" component={ProfileScreen}/>
+        </Tab.Navigator>
+    </NavigationContainer>
+);
