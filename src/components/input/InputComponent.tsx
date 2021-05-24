@@ -9,12 +9,15 @@ interface Props {
     placeholder: string;
 };
 
-export const InputText = (props: Props) => (
+export const InputText: React.FC<Props> = ({
+    input,
+    secureTextEntry,
+    placeholder}) => (
     <TextInput
         style={inputStyles.inputContainer}
-        placeholder={props.placeholder}
+        placeholder={placeholder}
         placeholderTextColor='#FFF'
-        value={props.input}
-        secureTextEntry={props.secureTextEntry}
+        value={input}
+        secureTextEntry={secureTextEntry}
     />
 );

@@ -1,19 +1,19 @@
 import React from 'react';
-import {TouchableOpacity, Text} from 'react-native';
+import {TouchableOpacity, TouchableOpacityProps, Text} from 'react-native';
 
 import {buttonStyles} from './buttonStyles.tsx'
 
+
 interface Props {
     butText: string;
+    onPress: Function;
 };
 
-const onPress = () => {alert('tapped')};
-
-export const MyButton = (props: Props) => (
+export const MyButton:React.FC<Props> = ({butText, onPress}) => (
     <TouchableOpacity
         style={buttonStyles.buttonContainer}
         onPress={onPress}
     >
-        <Text style={buttonStyles.buttonText}>{props.butText}</Text>
+        <Text style={buttonStyles.buttonText}>{butText}</Text>
     </TouchableOpacity>
 );
