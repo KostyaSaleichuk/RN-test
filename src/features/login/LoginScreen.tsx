@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, Alert} from 'react-native';
+import {View} from 'react-native';
 
-import {loginStyles} from './loginScreenStyles.tsx'
+import {loginStyles} from './loginScreenStyles'
 import {MyButton} from '../../components/button/ButtonComponent.tsx';
 import {InputText} from '../../components/input/InputComponent.tsx';
 

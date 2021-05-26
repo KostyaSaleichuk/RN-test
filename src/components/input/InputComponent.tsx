@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import { TextInput } from 'react-native';
 
-import {inputStyles} from './inputStyles.tsx'
+import {inputStyles} from './inputStyles'
 
 interface InputProps {
     input: string;
-    secureTextEntry: true;
+    secureTextEntry: boolean;
     placeholder: string;
 };
 

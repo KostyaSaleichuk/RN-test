@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, TouchableOpacityProps, Text} from 'react-native';
 
-import {buttonStyles} from './buttonStyles.tsx'
+import {buttonStyles} from './buttonStyles'
 
 
 interface ButtonProps {
