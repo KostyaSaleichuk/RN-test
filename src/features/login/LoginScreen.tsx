@@ -5,8 +5,12 @@ import {loginStyles} from './loginScreenStyles'
 import {MyButton} from '../../components/button/ButtonComponent.tsx';
 import {InputText} from '../../components/input/InputComponent.tsx';
 
+import {useAuth} from '../../navigation/navigators/Provider';
 
-export const LoginScreen = () => (
+export const LoginScreen = () => {
+
+    const auth = useAuth();
+
     <View style={loginStyles.container}>
         <InputText placeholder='Enter your Email'
         keyboardType= 'email-address'/>
@@ -15,6 +19,7 @@ export const LoginScreen = () => (
         />
         <MyButton
             text='Login'
+            onPress = {auth.logIn}
         />
     </View>
-);
+};

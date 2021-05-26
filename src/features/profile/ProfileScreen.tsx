@@ -4,8 +4,12 @@ import {View, Text, Image} from 'react-native';
 import {MyButton} from '../../components/button/ButtonComponent.tsx';
 import {profileStyles} from './profileScreenStyles';
 
+import {useAuth} from '../../navigation/navigators/Provider';
 
-export const ProfileScreen = () => (
+export const ProfileScreen = () => {
+
+    const auth = useAuth();
+
     <View style={profileStyles.profileScreen}>
         <View style={profileStyles.profileContainer}>
             <Image style={profileStyles.profilePicture}/>
@@ -16,7 +20,7 @@ export const ProfileScreen = () => (
         </View>
         <View style={profileStyles.buttonContainer}>
             <MyButton text='Change theme to: light' />
-            <MyButton text='Logout' />
+            <MyButton text='Logout' onPress={auth.logOut}/>
         </View>
     </View>
-);
+};
