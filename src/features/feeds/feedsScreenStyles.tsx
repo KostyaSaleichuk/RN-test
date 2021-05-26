@@ -10,9 +10,9 @@ export const feedsScreenStyles = StyleSheet.create({
         backgroundColor: '#3a474e',
     },
     postContainer:{
-        width: "85%",
-        height: 200,
-        backgroundColor: '#FFF',
-        marginTop: 15,
+            width: "85%",
+            height: 200,
+            backgroundColor: '#FFF',
+            marginTop: 15,
     },
 });

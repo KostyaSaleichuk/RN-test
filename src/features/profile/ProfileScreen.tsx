@@ -15,8 +15,8 @@ export const ProfileScreen = () => (
             </View>
         </View>
         <View style={profileStyles.buttonContainer}>
-            <MyButton butText='Change theme to: light' />
-            <MyButton butText='Logout' />
+            <MyButton text='Change theme to: light' />
+            <MyButton text='Logout' />
         </View>
     </View>
 );

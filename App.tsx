@@ -10,5 +10,3 @@ export const App = () => {
     <LoginScreen/>
   );
 };
-
-//<MainNavigator/>

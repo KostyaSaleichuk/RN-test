@@ -3,21 +3,18 @@ import { TextInput } from 'react-native';
 
 import {inputStyles} from './inputStyles.tsx'
 
-interface Props {
+interface InputProps {
     input: string;
-    secureTextEntry: boolean;
+    secureTextEntry: true;
     placeholder: string;
 };
 
-export const InputText: React.FC<Props> = ({
-    input,
-    secureTextEntry,
-    placeholder}) => (
+export const InputText:React.FC<InputProps> = (props) => (
     <TextInput
         style={inputStyles.inputContainer}
-        placeholder={placeholder}
+        placeholder={props.placeholder}
         placeholderTextColor='#FFF'
-        value={input}
-        secureTextEntry={secureTextEntry}
+        value={props.input}
+        secureTextEntry={props.secureTextEntry}
     />
 );
