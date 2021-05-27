@@ -18,7 +18,7 @@ const logIn = (email: string, _password: string): Promise<AuthData> => {
 };
 
 export const authService = {
-    signIn,
+    logIn,
 };
 
 const JWTTokenMock = '';

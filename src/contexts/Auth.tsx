@@ -36,7 +36,7 @@ export const AuthProvider: React.FC = ({children}) => {
 
     const logIn = async () => {
 
-        const _authData = await authService.signIn(
+        const _authData = await authService.logIn(
             'email@email.com',
             '123456',
         );
