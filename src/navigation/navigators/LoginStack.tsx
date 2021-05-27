@@ -5,8 +5,8 @@ import {LoginScreen} from '../../features/login/LoginScreen';
 
 const Stack = createStackNavigator();
 
-export const LoginStack = () => {
+export const LoginStack = () => (
     <Stack.Navigator>
         <Stack.Screen name='Login Screen' component={LoginScreen}/>
     </Stack.Navigator>
-};
+);

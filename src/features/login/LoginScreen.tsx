@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 
 import {loginStyles} from './loginScreenStyles'
 import {MyButton} from '../../components/button/ButtonComponent.tsx';
 import {InputText} from '../../components/input/InputComponent.tsx';
 
-import {useAuth} from '../../navigation/navigators/Provider';
+import {useAuth} from '../../contexts/Auth';
 
 export const LoginScreen = () => {
-
+    const [loading, isLoading] = useState(false);
     const auth = useAuth();
+    const logIn = async () => {
+        isLoading(true);
+        await auth.signIn();
+    };
 
+    return(
     <View style={loginStyles.container}>
         <InputText placeholder='Enter your Email'
         keyboardType= 'email-address'/>
@@ -19,7 +24,8 @@ export const LoginScreen = () => {
         />
         <MyButton
             text='Login'
-            onPress = {auth.logIn}
+            onPress = {logIn}
         />
     </View>
+    );
 };
