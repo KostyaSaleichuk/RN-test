@@ -8,6 +8,7 @@ import {useAuth} from '../../contexts/Auth';
 
 export const ProfileScreen = () => {
 
+
     const auth = useAuth();
     const logOut = () => {
         auth.logOut();
