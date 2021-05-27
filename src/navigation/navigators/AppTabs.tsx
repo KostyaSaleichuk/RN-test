@@ -7,9 +7,9 @@ import {ProfileScreen} from '../../features/profile/ProfileScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
-export const AppTabs = () => {
+export const AppTabs = () => (
     <Tab.Navigator>
         <Tab.Screen name="Feeds" component={FeedsScreen}/>
         <Tab.Screen name="Profile" component={ProfileScreen}/>
     </Tab.Navigator>
-};
+);

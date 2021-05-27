@@ -7,7 +7,7 @@ export type AuthData = {
 const logIn = (email: string, _password: string): Promise<AuthData> => {
 
     return new Promise((resolve) => {
-        setTimeout((resolve) => {
+        setTimeout(() => {
             resolve({
                 token: JWTTokenMock,
                 email: email,

@@ -12,7 +12,7 @@ export const LoginScreen = () => {
     const auth = useAuth();
     const logIn = async () => {
         isLoading(true);
-        await auth.signIn();
+        await auth.logIn();
     };
 
     return(
