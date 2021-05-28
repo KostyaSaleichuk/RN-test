@@ -1,24 +1,6 @@
-export type AuthData = {
-    token: string;
-    email: string;
-    name: string;
+export const testData = () => {
+    return{
+        email: 'email@email.com',
+        password: '123456',
+    };
 };
-
-const logIn = (email: string, _password: string): Promise<AuthData> => {
-
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({
-                token: JWTTokenMock,
-                email: email,
-                name: 'Some Name',
-            });
-        }, 1000);
-    });
-};
-
-export const authService = {
-    logIn,
-};
-
-const JWTTokenMock = '';

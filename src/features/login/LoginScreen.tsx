@@ -1,31 +1,37 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
+import {connect} from 'react-redux';
 
 import {loginStyles} from './loginScreenStyles'
-import {MyButton} from '../../components/button/ButtonComponent.tsx';
-import {InputText} from '../../components/input/InputComponent.tsx';
+import {MyButton} from '../../components/button/ButtonComponent';
+import {InputText} from '../../components/input/InputComponent';
+import {testData} from '../../services/authService';
 
-import {useAuth} from '../../contexts/Auth';
 
 export const LoginScreen = () => {
-    const [loading, isLoading] = useState(false);
-    const auth = useAuth();
-    const logIn = async () => {
-        isLoading(true);
-        await auth.logIn();
-    };
 
     return(
-    <View style={loginStyles.container}>
-        <InputText placeholder='Enter your Email'
-        keyboardType= 'email-address'/>
-        <InputText placeholder='Enter your password'
-                   secureTextEntry
-        />
-        <MyButton
-            text='Login'
-            onPress = {logIn}
-        />
-    </View>
+        <View style={loginStyles.container}>
+            <InputText placeholder='Enter your Email'
+                        keyboardType= 'email-address'
+                        value={value}
+            />
+            <InputText placeholder='Enter your password'
+                        value={value}
+                        secureTextEntry
+            />
+            <MyButton
+                text='Login'
+                onPress={props.logIn}
+            />
+        </View>
     );
 };
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        logIn: () => dispatch({type: 'LOG_IN'}),
+    }
+};
+
+export const LoginConnect = connect(mapDispatchToProps)(LoginScreen);

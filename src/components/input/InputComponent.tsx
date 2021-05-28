@@ -14,7 +14,7 @@ export const InputText:React.FC<InputProps> = (props) => (
         style={inputStyles.inputContainer}
         placeholder={props.placeholder}
         placeholderTextColor='#FFF'
-        value={props.input}
+        value={props.value}
         secureTextEntry={props.secureTextEntry}
     />
 );

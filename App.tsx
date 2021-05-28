@@ -1,13 +1,14 @@
 import React from 'react';
+import {Provider} from 'react-redux';
 
-import {Router} from './src/components/router/Router';
-import {AuthProvider} from './src/contexts/Auth';
+import {Router} from './src/navigation/Router';
+import {store} from './src/store';
 
 
 export const App = () => {
-  return (
-    <AuthProvider>
-        <Router/>
-    </AuthProvider>
-  );
+    return(
+        <Provider store = {store}>
+            <Router/>
+        </Provider>
+    );
 };
