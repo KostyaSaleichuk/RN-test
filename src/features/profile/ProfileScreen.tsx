@@ -6,7 +6,7 @@ import {MyButton} from '../../components/button/ButtonComponent.tsx';
 import {profileStyles} from './profileScreenStyles';
 
 
-export const ProfileScreen = () => {
+export const ProfileScreen = (props) => {
 
     return(
         <View style={profileStyles.profileScreen}>
@@ -31,4 +31,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const ProfileConnect = connect(mapDispatchToProps)(ProfileScreen);
+export const ProfileConnect = connect(mapDispatchToProps)(ProfileScreen);

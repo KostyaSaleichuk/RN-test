@@ -8,21 +8,23 @@ import {InputText} from '../../components/input/InputComponent';
 import {testData} from '../../services/authService';
 
 
-export const LoginScreen = () => {
+export const LoginScreen = (props) => {
 
     return(
         <View style={loginStyles.container}>
             <InputText placeholder='Enter your Email'
                         keyboardType= 'email-address'
-                        value={value}
+                        autoCapitalize = 'none'
+                        value={props.email}
             />
             <InputText placeholder='Enter your password'
-                        value={value}
+                        autoCapitalize = 'none'
                         secureTextEntry
+                        value={props.password}
             />
             <MyButton
                 text='Login'
-                onPress={props.logIn}
+                onPress = {props.logIn}
             />
         </View>
     );
@@ -30,8 +32,17 @@ export const LoginScreen = () => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
+        changeEmail:() => dispatch({type: 'ON_CHANGE_EMAIL'}),
+        changePassword:() => dispatch({type: 'ON_CHANGE_PASSWORD'}),
         logIn: () => dispatch({type: 'LOG_IN'}),
     }
 };
 
-export const LoginConnect = connect(mapDispatchToProps)(LoginScreen);
+const mapStateToProps = (state) => {
+    return {
+        email: state.email,
+        password: state.password,
+    }
+};
+
+export const LoginConnect = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

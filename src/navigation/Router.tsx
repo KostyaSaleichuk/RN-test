@@ -9,18 +9,15 @@ import { LoginStack } from './LoginStack';
 
 const Stack = createStackNavigator();
 
-export const Router = () => {
-
-    return(
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName = { isLoggedIn ? 'Main' : 'Login'}
-                             screenOptions = {{headerShown: false}}>
-                <Stack.Screen name="Login" component={LoginStack}/>
-                <Stack.Screen name="Main" component={MainTabs}/>
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
-};
+export const Router = (props) => (
+    <NavigationContainer>
+        <Stack.Navigator initialRouteName = { props.isLoggedIn ? 'Main' : 'Login'}
+                         screenOptions = {{headerShown: false}}>
+            <Stack.Screen name="Login" component={LoginStack}/>
+            <Stack.Screen name="Main" component={MainTabs}/>
+        </Stack.Navigator>
+    </NavigationContainer>
+);
 
 const mapStateToProps = (state) => {
     return{

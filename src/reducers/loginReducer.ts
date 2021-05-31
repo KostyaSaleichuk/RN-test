@@ -1,16 +1,27 @@
-import {LOG_IN, LOG_OUT} from '../actions/actions';
-import {testData} from '../services/authService';
+import {ON_CHANGE_EMAIL, ON_CHANGE_PASSWORD, LOG_IN, LOG_OUT} from '../actions/actions';
+import {loginUser} from '../middlewares/loginMW';
 
 const initialState = {
     isLoggedIn: false,
+    email: '',
+    password: '',
 };
 
-export function loginReducer(state = initialState, action) {
+export const loginReducer = (state = initialState, action) => {
     switch (action.type) {
-        case LOG_IN:
+        case ON_CHANGE_EMAIL:
         return{
             ...state,
-            isLoggedIn: true,
+            email:email.concat(email),
+        };
+        case ON_CHANGE_PASSWORD:
+        return{
+            ...state,
+            password:password.concat(password),
+        };
+        case LOG_IN:
+        return{
+            loginUser,
         };
         case LOG_OUT:
         return{
@@ -21,10 +32,3 @@ export function loginReducer(state = initialState, action) {
             return state;
     };
 };
-/*
-const func = () => {
-    if (testData.email == email && testData.password == password)
-    {
-        return ...state.isLoggedIn: true
-    }
-*/
