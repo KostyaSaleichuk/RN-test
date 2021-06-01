@@ -1,8 +1,8 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import {FeedsScreen} from '../features/feeds/FeedsScreen';
-import {ProfileScreen} from '../features/profile/ProfileScreen';
+import {FeedsScreen} from '../features/feeds/Feeds';
+import {ProfileScreen} from '../features/profile/Profile';
 
 
 const Tab = createMaterialTopTabNavigator();

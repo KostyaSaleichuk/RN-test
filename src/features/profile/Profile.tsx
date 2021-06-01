@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import { connect } from 'react-redux';
 
-import {MyButton} from '../../components/button/ButtonComponent.tsx';
+import {MyButton} from '../../components/button/Button';
 import {profileStyles} from './profileScreenStyles';
 
 
@@ -25,10 +25,8 @@ export const ProfileScreen = (props) => {
     );
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return{
-        logOut: () => dispatch({type: 'LOG_OUT'})
-    }
-};
+const mapDispatchToProps = (dispatch) => ({
+    logOut: () => dispatch({type: 'LOG_OUT'})
+});
 
 export const ProfileConnect = connect(mapDispatchToProps)(ProfileScreen);
