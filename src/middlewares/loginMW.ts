@@ -1,8 +1,8 @@
-import {testData} from '../services/authService';
+import { testData } from "../services/authService";
 
-
-export const loginUser = () => (dispatch, getState) => {
-    if (testData.email === email && testData.password === password) {
-       Object.assign({},state,{ isLoggedIn:true })
-    }
+export const loggingIn = () => (dispatch: any) => {
+  if (testData.email == state.email && testData.password == state.password) {
+    dispatch({ type: "LOG_IN" });
+  }
+  dispatch(loggingIn());
 };
