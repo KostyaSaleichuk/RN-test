@@ -1,8 +1,9 @@
-import { testData } from "../services/authService";
+import {testData} from '../services/authService';
 
-export const loggingIn = () => (dispatch: any) => {
+//doesn't work yet
+export const loggingIn = state => dispatch => {
   if (testData.email == state.email && testData.password == state.password) {
-    dispatch({ type: "LOG_IN" });
+    dispatch();
   }
-  dispatch(loggingIn());
+  dispatch(loggingIn(state));
 };

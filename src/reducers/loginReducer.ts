@@ -1,34 +1,39 @@
-import {
-  onChangeEmail,
-  onChangePassword,
-  logIn,
-  logOut,
-} from "../actions/actions";
+import {LoginActionTypes} from '../interfaces';
+import {Constants} from '../actions/types';
 
-const initialState = {
+interface IInitialState {
+  isLoggedIn: boolean;
+  email: string;
+  password: string;
+}
+
+const initialState: IInitialState = {
   isLoggedIn: false,
-  email: "",
-  password: "",
+  email: 'email@email.com',
+  password: '123456',
 };
 
-export const loginReducer = (state = initialState, action: any) => {
+export const loginReducer = (
+  state = initialState,
+  action: LoginActionTypes,
+) => {
   switch (action.type) {
-    case onChangeEmail:
+    case Constants.ON_CHANGE_EMAIL:
       return {
         ...state,
         email: action.payload,
       };
-    case onChangePassword:
+    case Constants.ON_CHANGE_PASSWORD:
       return {
         ...state,
         password: action.payload,
       };
-    case logIn:
+    case Constants.LOG_IN:
       return {
         ...state,
         isLoggedIn: true,
       };
-    case logOut:
+    case Constants.LOG_OUT:
       return {
         state,
       };
