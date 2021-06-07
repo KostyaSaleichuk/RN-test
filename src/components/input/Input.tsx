@@ -2,9 +2,16 @@ import React from 'react';
 import {TextInput} from 'react-native';
 
 import {inputStyles} from './inputStyles';
-import {IInputProps} from '../../interfaces';
 
-export const InputText: React.FC<IInputProps> = props => (
+interface InputProps {
+  input?: string;
+  secureTextEntry?: boolean;
+  placeholder: string;
+  onChangeText: (input: string) => void;
+  value: string;
+}
+
+export const InputText: React.FC<InputProps> = props => (
   <TextInput
     style={inputStyles.inputContainer}
     placeholder={props.placeholder}

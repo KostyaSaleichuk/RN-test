@@ -1,16 +1,15 @@
-import {LoginActionTypes} from '../interfaces';
 import {Constants} from '../actions/types';
-
-interface IInitialState {
+import {LoginActionTypes} from '../actions/loginActions';
+interface InitialState {
   isLoggedIn: boolean;
   email: string;
   password: string;
 }
 
-const initialState: IInitialState = {
+const initialState: InitialState = {
   isLoggedIn: false,
-  email: 'email@email.com',
-  password: '123456',
+  email: '',
+  password: '',
 };
 
 export const loginReducer = (

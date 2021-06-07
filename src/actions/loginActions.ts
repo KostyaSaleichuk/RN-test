@@ -1,25 +1,43 @@
 import {Constants} from './types';
-import {
-  IOnChangeEmail,
-  IOnChangePassword,
-  ILogIn,
-  ILogOut,
-} from '../interfaces';
 
-export const onChangeEmail = (email: string): IOnChangeEmail => ({
+interface OnChangeEmail {
+  type: typeof Constants.ON_CHANGE_EMAIL;
+  payload: string;
+}
+
+export const onChangeEmail = (email: string): OnChangeEmail => ({
   type: Constants.ON_CHANGE_EMAIL,
   payload: email,
 });
 
-export const onChangePassword = (password: string): IOnChangePassword => ({
+interface OnChangePassword {
+  type: typeof Constants.ON_CHANGE_PASSWORD;
+  payload: string;
+}
+
+export const onChangePassword = (password: string): OnChangePassword => ({
   type: Constants.ON_CHANGE_PASSWORD,
   payload: password,
 });
 
-export const logIn = (): ILogIn => ({
+interface LogIn {
+  type: typeof Constants.LOG_IN;
+}
+
+export const logIn = (): LogIn => ({
   type: Constants.LOG_IN,
 });
 
-export const logOut = (): ILogOut => ({
+interface LogOut {
+  type: typeof Constants.LOG_OUT;
+}
+
+export const logOut = (): LogOut => ({
   type: Constants.LOG_OUT,
 });
+
+export type LoginActionTypes =
+  | OnChangeEmail
+  | OnChangePassword
+  | LogIn
+  | LogOut;

@@ -5,11 +5,15 @@ import {connect} from 'react-redux';
 
 import {MainTabs} from './MainTabs';
 import {LoginStack} from './LoginStack';
-import {IProps} from '../interfaces';
+import {AppState} from '../reducers/RootReducer';
 
 const Stack = createStackNavigator();
 
-const router: React.FC<IProps> = props => (
+interface RouterProps {
+  isLoggedIn: boolean;
+}
+
+const router: React.FC<RouterProps> = props => (
   <NavigationContainer>
     <Stack.Navigator
       initialRouteName={props.isLoggedIn ? 'Main' : 'Login'}
@@ -20,7 +24,7 @@ const router: React.FC<IProps> = props => (
   </NavigationContainer>
 );
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   isLoggedIn: state.isLoggedIn,
 });
 
