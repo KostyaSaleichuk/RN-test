@@ -1,13 +1,14 @@
 import {Constants} from '../actions/types';
 import {LoginActionTypes} from '../actions/loginActions';
-interface InitialState {
+
+export interface LoginState {
   isLoggedIn: boolean;
   email: string;
   password: string;
 }
 
-const initialState: InitialState = {
-  isLoggedIn: false,
+const initialState: LoginState = {
+  isLoggedIn: true,
   email: '',
   password: '',
 };

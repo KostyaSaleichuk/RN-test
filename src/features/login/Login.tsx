@@ -15,7 +15,7 @@ interface Props {
   placeholder: string;
   onChangeEmail: (input: string) => void;
   onChangePassword: (input: string) => void;
-  loggingIn: any;
+  loggingIn?: () => void;
   input: string;
 }
 
@@ -23,13 +23,13 @@ const login: React.FC<Props> = props => (
   <View style={loginStyles.container}>
     <InputText
       placeholder="Enter your Email"
-      onChangeText={input => props.onChangeEmail(input)}
+      onChangeText={email => props.onChangeEmail(email)}
       value={props.input}
     />
     <InputText
       placeholder="Enter your password"
       secureTextEntry
-      onChangeText={input => props.onChangePassword(input)}
+      onChangeText={password => props.onChangePassword(password)}
       value={props.input}
     />
     <MyButton text="Login" onPress={props.loggingIn} />

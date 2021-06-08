@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import {PostList} from '../../components/list/PostList';
 import {feedsScreenStyles} from './feedsScreenStyles';
 
-export const FeedsScreen = () => (
+export const Feeds = () => (
   <View style={feedsScreenStyles.feedsScreen}>
     <PostList />
   </View>
