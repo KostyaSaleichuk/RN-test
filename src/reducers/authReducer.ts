@@ -1,22 +1,19 @@
 import {Constants} from '../actions/types';
 import {LoginActionTypes} from '../actions/loginActions';
 
-export interface LoginState {
+export interface AuthState {
   isLoggedIn: boolean;
   email: string;
   password: string;
 }
 
-const initialState: LoginState = {
-  isLoggedIn: true,
+const initialState: AuthState = {
+  isLoggedIn: false,
   email: '',
   password: '',
 };
 
-export const loginReducer = (
-  state = initialState,
-  action: LoginActionTypes,
-) => {
+export const authReducer = (state = initialState, action: LoginActionTypes) => {
   switch (action.type) {
     case Constants.ON_CHANGE_EMAIL:
       return {

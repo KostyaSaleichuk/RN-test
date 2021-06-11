@@ -1,55 +1,81 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import {Dispatch} from 'redux';
 
 import {loginStyles} from './loginScreenStyles';
 import {MyButton} from '../../components/button/Button';
 import {InputText} from '../../components/input/Input';
-import {onChangeEmail, onChangePassword} from '../../actions/loginActions';
-import {loggingIn} from '../../middlewares/loginMW';
-import {AppState} from '../../reducers/RootReducer';
+import {testData} from '../../services/authService';
 
-interface Props {
+export interface Props {
   placeholder: string;
-  onChangeEmail: (input: string) => void;
-  onChangePassword: (input: string) => void;
-  loggingIn?: () => void;
-  input: string;
+  navigation: {
+    navigate: (route: string) => void;
+    reset: (routes: {}) => void;
+  };
 }
 
-const login: React.FC<Props> = props => (
-  <View style={loginStyles.container}>
-    <InputText
-      placeholder="Enter your Email"
-      onChangeText={email => props.onChangeEmail(email)}
-      value={props.input}
-    />
-    <InputText
-      placeholder="Enter your password"
-      secureTextEntry
-      onChangeText={password => props.onChangePassword(password)}
-      value={props.input}
-    />
-    <MyButton text="Login" onPress={props.loggingIn} />
-  </View>
-);
+const login: React.FC<Props> = ({navigation}) => {
+  const [inputEmail, setInputEmail] = useState('');
+  const [inputPassword, setInputPassword] = useState('');
 
-const mapStateToProps = (state: AppState) => ({
-  email: state.email,
-  password: state.password,
-});
+  const [validEmail, setValidEmail] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return bindActionCreators(
-    {
-      loggingIn,
-      onChangeEmail,
-      onChangePassword,
-    },
-    dispatch,
+  const emailReg =
+    /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+  const validUser =
+    inputEmail === testData.email && inputPassword === testData.password;
+
+  const tryEmail = () => {
+    if (emailReg.test(inputEmail) == true) {
+      return setValidEmail(true);
+    }
+    return setValidEmail(false);
+  };
+  const tryPassword = () => {
+    if (inputPassword.length >= 8) {
+      return setValidPassword(true);
+    }
+    return setValidPassword(false);
+  };
+  const loginHandler = () => {
+    tryEmail();
+    tryPassword();
+    if (validEmail && validPassword && validUser) {
+      navigation.navigate('Main');
+    }
+  };
+
+  return (
+    <View style={loginStyles.container}>
+      <InputText
+        placeholder="Enter your Email"
+        onChangeText={setInputEmail}
+        value={inputEmail}
+        keyboardType={'email-address'}
+      />
+      {validEmail ? null : (
+        <Text style={{color: '#f54242'}}>Email is not valid</Text>
+      )}
+      <InputText
+        placeholder="Enter your password"
+        secureTextEntry
+        onChangeText={setInputPassword}
+        value={inputPassword}
+      />
+      {validPassword ? null : (
+        <Text style={{color: '#f54242'}}>
+          Password length must be min 8 characters
+        </Text>
+      )}
+      <MyButton text="Login" onPress={loginHandler} />
+    </View>
   );
 };
 
-export const Login = connect(mapStateToProps, mapDispatchToProps)(login);
+const mapDispatchToProps = (dispatch: Dispatch) => ({});
+
+export const Login = connect(null, mapDispatchToProps)(login);

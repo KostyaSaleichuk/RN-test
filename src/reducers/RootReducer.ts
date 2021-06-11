@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 
-import {loginReducer} from './loginReducer';
+import {authReducer} from './authReducer';
 import {feedsReducer} from './feedsReducer';
-import {LoginState} from './loginReducer';
+import {AuthState} from './authReducer';
 import {FeedsState} from './feedsReducer';
 
-export const RootReducer = combineReducers({loginReducer, feedsReducer});
+export const RootReducer = combineReducers({authReducer, feedsReducer});
 
-export interface AppState extends LoginState, FeedsState {}
+export interface AppState extends AuthState, FeedsState {}

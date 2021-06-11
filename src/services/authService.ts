@@ -1,4 +1,4 @@
 export const testData = {
-  email: 'email',
-  password: '123456',
+  email: 'email@email.com',
+  password: '12345678',
 };

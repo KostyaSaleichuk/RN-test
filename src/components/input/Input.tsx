@@ -9,6 +9,7 @@ interface InputProps {
   placeholder: string;
   onChangeText: (input: string) => void;
   value: string;
+  keyboardType?: string;
 }
 
 export const InputText: React.FC<InputProps> = props => (
