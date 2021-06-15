@@ -1,57 +1,54 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
-import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import {loginStyles} from './loginScreenStyles';
-import {MyButton} from '../../components/button/Button';
-import {InputText} from '../../components/input/Input';
+import {CustomButton} from '../../components/button/Button';
+import {Input} from '../../components/input/Input';
 import {testData} from '../../services/authService';
+import {emailPattern} from '../../services/emailPattern';
+import {Routes} from '../../navigation/Router';
 
-export interface Props {
-  placeholder: string;
-  navigation: {
-    navigate: (route: string) => void;
-    reset: (routes: {}) => void;
-  };
+type LoginScreenParamList = {
+  [Routes.Main]: undefined;
+};
+
+type NavigationProp = StackNavigationProp<LoginScreenParamList, Routes.Main>;
+
+interface LoginProps {
+  navigation: NavigationProp;
 }
 
-const login: React.FC<Props> = ({navigation}) => {
+const login = ({navigation}: LoginProps) => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
 
-  const emailReg =
-    /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
   const validUser =
     inputEmail === testData.email && inputPassword === testData.password;
 
-  const tryEmail = () => {
-    if (emailReg.test(inputEmail) == true) {
-      return setValidEmail(true);
-    }
-    return setValidEmail(false);
+  const tryEmail = (inputEmail: string) =>
+    emailPattern.test(inputEmail) ? setValidEmail(true) : setValidEmail(false);
+
+  const tryPassword = (inputPassword: string) => {
+    inputPassword.length >= 8
+      ? setValidPassword(true)
+      : setValidPassword(false);
   };
-  const tryPassword = () => {
-    if (inputPassword.length >= 8) {
-      return setValidPassword(true);
-    }
-    return setValidPassword(false);
-  };
+
   const loginHandler = () => {
-    tryEmail();
-    tryPassword();
+    tryEmail(inputEmail);
+    tryPassword(inputPassword);
     if (validEmail && validPassword && validUser) {
-      navigation.navigate('Main');
+      navigation.navigate(Routes.Main);
     }
   };
 
   return (
     <View style={loginStyles.container}>
-      <InputText
+      <Input
         placeholder="Enter your Email"
         onChangeText={setInputEmail}
         value={inputEmail}
@@ -60,7 +57,7 @@ const login: React.FC<Props> = ({navigation}) => {
       {validEmail ? null : (
         <Text style={{color: '#f54242'}}>Email is not valid</Text>
       )}
-      <InputText
+      <Input
         placeholder="Enter your password"
         secureTextEntry
         onChangeText={setInputPassword}
@@ -68,14 +65,12 @@ const login: React.FC<Props> = ({navigation}) => {
       />
       {validPassword ? null : (
         <Text style={{color: '#f54242'}}>
-          Password length must be min 8 characters
+          Password length must be min 8 characters long
         </Text>
       )}
-      <MyButton text="Login" onPress={loginHandler} />
+      <CustomButton text="Login" onPress={loginHandler} />
     </View>
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({});
-
-export const Login = connect(null, mapDispatchToProps)(login);
+export const Login = login;

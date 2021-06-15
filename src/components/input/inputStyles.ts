@@ -1,9 +1,9 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
 
 export const inputStyles = StyleSheet.create({
   inputContainer: {
-    color: "#FFF",
-    width: "80%",
+    color: '#FFF',
+    width: '80%',
     height: 40,
   },
 });

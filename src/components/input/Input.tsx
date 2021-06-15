@@ -1,24 +1,12 @@
 import React from 'react';
-import {TextInput} from 'react-native';
+import {TextInput, TextInputProps} from 'react-native';
 
 import {inputStyles} from './inputStyles';
 
-interface InputProps {
-  input?: string;
-  secureTextEntry?: boolean;
-  placeholder: string;
-  onChangeText: (input: string) => void;
-  value: string;
-  keyboardType?: string;
-}
-
-export const InputText: React.FC<InputProps> = props => (
+export const Input: React.FC<TextInputProps> = ({style, ...props}) => (
   <TextInput
-    style={inputStyles.inputContainer}
-    placeholder={props.placeholder}
+    {...props}
+    style={[inputStyles.inputContainer]}
     placeholderTextColor="#FFF"
-    value={props.input}
-    onChangeText={props.onChangeText}
-    secureTextEntry={props.secureTextEntry}
   />
 );

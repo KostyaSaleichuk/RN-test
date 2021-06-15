@@ -2,20 +2,29 @@ import React from 'react';
 import {View, Text, Image, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
+import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
 
-import {MyButton} from '../../components/button/Button';
+import {CustomButton} from '../../components/button/Button';
 import {profileStyles} from './profileScreenStyles';
 import {logOut} from '../../actions/loginActions';
+import {Routes} from '../../navigation/Router';
+
+type ProfileTabParamList = {
+  [Routes.Login]: undefined;
+};
+
+type NavigationProp = MaterialTopTabNavigationProp<
+  ProfileTabParamList,
+  Routes.Login
+>;
 
 interface ProfileProps {
-  navigation: {
-    navigate: (route: string) => void;
-    reset: (arg: any) => void;
-  };
+  navigation: NavigationProp;
 }
 
-const profile: React.FC<ProfileProps> = ({navigation}) => {
-  const logOutHandler = () => navigation.reset({routes: [{name: 'Login'}]});
+const profile = ({navigation}: ProfileProps) => {
+  const logOutHandler = () =>
+    navigation.reset({routes: [{name: Routes.Login}]});
 
   return (
     <View style={profileStyles.profileScreen}>
@@ -30,7 +39,7 @@ const profile: React.FC<ProfileProps> = ({navigation}) => {
         </View>
       </View>
       <View style={profileStyles.buttonContainer}>
-        <MyButton
+        <CustomButton
           text="Change theme to: light"
           onPress={() =>
             Alert.alert(
@@ -39,7 +48,7 @@ const profile: React.FC<ProfileProps> = ({navigation}) => {
             )
           }
         />
-        <MyButton text="Logout" onPress={logOutHandler} />
+        <CustomButton text="Logout" onPress={logOutHandler} />
       </View>
     </View>
   );

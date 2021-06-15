@@ -9,6 +9,13 @@ import {AppState} from '../reducers/RootReducer';
 
 const Stack = createStackNavigator();
 
+export enum Routes {
+  Main = 'Main',
+  Login = 'Login',
+  Profile = 'Profile',
+  Feeds = 'Feeds',
+}
+
 interface RouterProps {
   isLoggedIn: boolean;
 }
@@ -16,10 +23,10 @@ interface RouterProps {
 const router: React.FC<RouterProps> = props => (
   <NavigationContainer>
     <Stack.Navigator
-      initialRouteName={props.isLoggedIn ? 'Main' : 'Login'}
+      initialRouteName={props.isLoggedIn ? Routes.Main : Routes.Login}
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Login" component={LoginStack} />
-      <Stack.Screen name="Main" component={MainTabs} />
+      <Stack.Screen name={Routes.Login} component={LoginStack} />
+      <Stack.Screen name={Routes.Main} component={MainTabs} />
     </Stack.Navigator>
   </NavigationContainer>
 );

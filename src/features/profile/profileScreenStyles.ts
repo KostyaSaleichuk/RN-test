@@ -1,40 +1,42 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
 
 export const profileStyles = StyleSheet.create({
   profileScreen: {
     flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#3a474e",
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#3a474e',
   },
   profileContainer: {
     margin: 30,
-    backgroundColor: "#65727a",
-    width: "90%",
+    backgroundColor: '#65727a',
+    width: '90%',
     padding: 15,
     borderRadius: 15,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   profilePicture: {
     height: 80,
     width: 80,
     borderRadius: 40,
-    backgroundColor: "#000",
+    backgroundColor: '#000',
   },
   textContainer: {
-    alignSelf: "center",
+    alignSelf: 'center',
     paddingLeft: 20,
   },
   profileText: {
-    color: "#FFF",
+    color: '#FFF',
     fontSize: 14,
-    textAlign: "center",
+    textAlign: 'center',
   },
   buttonContainer: {
-    flexDirection: "column",
-    width: "100%",
+    flexDirection: 'column',
+    width: '100%',
+    height: 125,
     paddingBottom: 20,
-    alignItems: "center",
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
