@@ -29,13 +29,12 @@ const login = ({navigation}: LoginProps) => {
   const validUser =
     inputEmail === testData.email && inputPassword === testData.password;
 
-  const tryEmail = (inputEmail: string) =>
-    emailPattern.test(inputEmail) ? setValidEmail(true) : setValidEmail(false);
+  const tryEmail = (inputEmail: string) => {
+    setValidEmail(emailPattern.test(inputEmail));
+  };
 
   const tryPassword = (inputPassword: string) => {
-    inputPassword.length >= 8
-      ? setValidPassword(true)
-      : setValidPassword(false);
+    setValidPassword(inputPassword.length >= 8);
   };
 
   const loginHandler = () => {
