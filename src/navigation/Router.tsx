@@ -13,7 +13,7 @@ export enum Routes {
   Main = 'Main',
   Login = 'Login',
   Profile = 'Profile',
-  Feeds = 'Feeds',
+  Feed = 'Feed',
 }
 
 interface RouterProps {

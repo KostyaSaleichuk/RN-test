@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
-import {View, Image, Text, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 
-import {listStyles} from './listStyles';
+import {FeedCard} from '../../components/feedCard/FeedCard';
+import {feedScreenStyles} from './feedScreenStyles';
 
-export const Posts = () => {
+export const Feed = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [data, setData] = useState([]);
@@ -35,25 +36,18 @@ export const Posts = () => {
     getPosts();
   };
 
-  const post = ({item}: any) => {
-    return (
-      <View style={listStyles.itemContainer}>
-        <Image source={{uri: item.download_url}} style={listStyles.itemImage} />
-        <View style={listStyles.itemTextContainer}>
-          <Text style={listStyles.itemText}>{item.author}</Text>
-        </View>
-      </View>
-    );
-  };
-
   return (
-    <FlatList
-      renderItem={post}
-      data={data}
-      keyExtractor={(item, index) => index.toString()}
-      onEndReached={loadMore}
-      onRefresh={refreshHandler}
-      refreshing={loading}
-    />
+    <View style={feedScreenStyles.feedScreen}>
+      <FlatList
+        renderItem={data => (
+          <FeedCard url={data.item.download_url} author={data.item.author} />
+        )}
+        data={data}
+        keyExtractor={(item, id) => id.toString()}
+        onEndReached={loadMore}
+        onRefresh={refreshHandler}
+        refreshing={loading}
+      />
+    </View>
   );
 };
