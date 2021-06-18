@@ -1,39 +1,46 @@
-import axios from 'axios';
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {View, FlatList} from 'react-native';
+import {connect} from 'react-redux';
+import {Action} from 'redux';
+import {ThunkDispatch} from 'redux-thunk';
 
 import {FeedCard} from '../../components/feedCard/FeedCard';
 import {feedScreenStyles} from './feedScreenStyles';
+import {
+  startLoading,
+  stopLoading,
+  setPage,
+  refresh,
+} from '../../actions/feedActions';
+import {getData, FeedState} from '../../reducers/feedReducer';
+import {AppState} from '../../reducers/RootReducer';
 
-export const Feed = () => {
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(0);
-  const [data, setData] = useState([]);
+interface FeedProps extends FeedState {
+  oading: boolean;
+  startLoading: () => void;
+  stopLoading: () => void;
+  setPage: () => void;
+  getData: (page: number) => void;
+  refresh: () => void;
+}
 
-  const getPosts = async () =>
-    await axios
-      .get(`https://picsum.photos/v2/list?page=${page}&limit=10`)
-      .then(response => {
-        setData(data.concat(response.data));
-      })
-      .finally(() => setLoading(false));
-
+const feed = (props: FeedProps) => {
   useEffect(() => {
-    setLoading(true);
-    getPosts();
+    props.startLoading;
+    props.getData(props.page);
   }, []);
 
   const loadMore = () => {
-    setPage(page + 1);
-    setLoading(true);
-    getPosts();
+    props.startLoading;
+    props.setPage();
+    props.getData(props.page);
   };
 
   const refreshHandler = () => {
-    setPage(0);
-    setLoading(true);
-    setData([]);
-    getPosts();
+    props.startLoading();
+    props.refresh();
+    props.getData(props.page);
+    props.stopLoading();
   };
 
   return (
@@ -42,12 +49,31 @@ export const Feed = () => {
         renderItem={data => (
           <FeedCard url={data.item.download_url} author={data.item.author} />
         )}
-        data={data}
+        data={props.data}
         keyExtractor={(item, id) => id.toString()}
         onEndReached={loadMore}
+        onEndReachedThreshold={0.5}
         onRefresh={refreshHandler}
-        refreshing={loading}
+        refreshing={props.isLoading}
       />
     </View>
   );
 };
+
+const mapStateToProps = (state: AppState) => ({
+  isLoading: state.feedReducer.isLoading,
+  page: state.feedReducer.page,
+  data: state.feedReducer.data,
+});
+
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<{}, undefined, Action>,
+) => ({
+  startLoading: () => dispatch(startLoading()),
+  stopLoading: () => dispatch(stopLoading()),
+  setPage: () => dispatch(setPage()),
+  refresh: () => dispatch(refresh()),
+  getData: (page: number) => dispatch(getData(page)),
+});
+
+export const Feed = connect(mapStateToProps, mapDispatchToProps)(feed);
