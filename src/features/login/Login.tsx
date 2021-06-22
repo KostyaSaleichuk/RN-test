@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {Dispatch} from 'redux';
+import {connect} from 'react-redux'
+import {logIn} from '../../actions/loginActions'
 
 import {loginStyles} from './loginScreenStyles';
 import {CustomButton} from '../../components/button/Button';
@@ -19,7 +22,7 @@ interface LoginProps {
   navigation: NavigationProp;
 }
 
-export const Login = ({navigation}: LoginProps) => {
+const login = ({navigation}: LoginProps) => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
@@ -71,3 +74,9 @@ export const Login = ({navigation}: LoginProps) => {
     </View>
   );
 };
+
+const mapDispatchToProps = (dispatch: Dispatch) =>({
+  logIn: () => dispatch(logIn()),
+})
+
+export const Login = connect(null, mapDispatchToProps)(login);
