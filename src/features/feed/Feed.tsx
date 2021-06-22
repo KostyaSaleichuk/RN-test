@@ -16,7 +16,6 @@ import {getData, FeedState} from '../../reducers/feedReducer';
 import {AppState} from '../../reducers/RootReducer';
 
 interface FeedProps extends FeedState {
-  oading: boolean;
   startLoading: () => void;
   stopLoading: () => void;
   setPage: () => void;
@@ -25,10 +24,10 @@ interface FeedProps extends FeedState {
 }
 
 const feed = (props: FeedProps) => {
-  useEffect(() => {
-    props.startLoading;
-    props.getData(props.page);
-  }, []);
+   useEffect(() => {
+     props.startLoading;
+     props.getData(props.page);
+   }, []);
 
   const loadMore = () => {
     props.startLoading;

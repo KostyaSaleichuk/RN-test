@@ -1,7 +1,7 @@
 import {Constants} from './types';
 
 interface Refresh {
-  type: typeof Constants.REFRESH;
+  type: Constants.REFRESH;
 }
 
 export const refresh = (): Refresh => ({
@@ -9,7 +9,7 @@ export const refresh = (): Refresh => ({
 });
 
 interface StartLoading {
-  type: typeof Constants.START_LOADING;
+  type: Constants.START_LOADING;
 }
 
 export const startLoading = (): StartLoading => ({
@@ -17,7 +17,7 @@ export const startLoading = (): StartLoading => ({
 });
 
 interface StopLoading {
-  type: typeof Constants.STOP_LOADING;
+  type: Constants.STOP_LOADING;
 }
 
 export const stopLoading = (): StopLoading => ({
@@ -25,7 +25,7 @@ export const stopLoading = (): StopLoading => ({
 });
 
 interface SetPage {
-  type: typeof Constants.ADD_PAGE;
+  type: Constants.ADD_PAGE;
 }
 
 export const setPage = (): SetPage => ({
@@ -33,11 +33,11 @@ export const setPage = (): SetPage => ({
 });
 
 interface AddData {
-  type: typeof Constants.ADD_DATA;
-  data: any[];
+  type: Constants.ADD_DATA;
+  data: Array<{download_url:string, author:string}>;
 }
 
-export const addData = (data: any): AddData => ({
+export const addData = (data: AddData) => ({
   type: Constants.ADD_DATA,
   data: data,
 });

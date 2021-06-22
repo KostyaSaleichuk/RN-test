@@ -7,7 +7,7 @@ import {getImages} from '../services/imagesRequest';
 
 export interface FeedState {
   isLoading: boolean;
-  data: any[];
+  data: Array<{download_url:string, author:string}>;
   page: number;
 }
 
