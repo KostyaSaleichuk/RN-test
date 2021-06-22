@@ -19,7 +19,7 @@ interface LoginProps {
   navigation: NavigationProp;
 }
 
-const login = ({navigation}: LoginProps) => {
+export const Login = ({navigation}: LoginProps) => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
@@ -71,5 +71,3 @@ const login = ({navigation}: LoginProps) => {
     </View>
   );
 };
-
-export const Login = login;
