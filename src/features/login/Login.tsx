@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {Dispatch} from 'redux';
-import {connect} from 'react-redux'
-import {logIn} from '../../actions/loginActions'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {loginStyles} from './loginScreenStyles';
 import {CustomButton} from '../../components/button/Button';
@@ -15,16 +13,17 @@ import {Routes} from '../../navigation/Router';
 type LoginScreenParamList = {
   [Routes.Main]: undefined;
 };
-
 type NavigationProp = StackNavigationProp<LoginScreenParamList, Routes.Main>;
 
 interface LoginProps {
   navigation: NavigationProp;
 }
 
-const login = ({navigation}: LoginProps) => {
+export const Login = ({navigation}:LoginProps) => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
@@ -40,13 +39,24 @@ const login = ({navigation}: LoginProps) => {
     setValidPassword(inputPassword.length >= 8);
   };
 
-  const loginHandler = () => {
+  const loginChecker = () => {
     tryEmail(inputEmail);
     tryPassword(inputPassword);
     if (validEmail && validPassword && validUser) {
-      navigation.navigate(Routes.Main);
+      setIsLoggedIn(true);
     }
   };
+
+  const loginHandler = async() =>{
+    try{
+      loginChecker();
+      const value = JSON.stringify(isLoggedIn)
+      await AsyncStorage.setItem('loggedIn', value)
+      navigation.navigate(Routes.Main);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <View style={loginStyles.container}>
@@ -74,9 +84,3 @@ const login = ({navigation}: LoginProps) => {
     </View>
   );
 };
-
-const mapDispatchToProps = (dispatch: Dispatch) =>({
-  logIn: () => dispatch(logIn()),
-})
-
-export const Login = connect(null, mapDispatchToProps)(login);

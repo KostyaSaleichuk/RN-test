@@ -8,5 +8,6 @@ import {FeedState} from './feedReducer';
 export const RootReducer = combineReducers({authReducer, feedReducer});
 
 export interface AppState extends AuthState, FeedState {
+  authReducer: AuthState;
   feedReducer: FeedState;
 }

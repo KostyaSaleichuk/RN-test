@@ -1,13 +1,11 @@
 import React from 'react';
 import {View, Text, Image, Alert} from 'react-native';
-import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
 import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
 
 import {CustomButton} from '../../components/button/Button';
 import {profileStyles} from './profileScreenStyles';
-import {logOut} from '../../actions/loginActions';
 import {Routes} from '../../navigation/Router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type ProfileTabParamList = {
   [Routes.Login]: undefined;
@@ -22,9 +20,16 @@ interface ProfileProps {
   navigation: NavigationProp;
 }
 
-const profile = ({navigation}: ProfileProps) => {
-  const logOutHandler = () =>
-    navigation.reset({routes: [{name: Routes.Login}]});
+export const Profile = ({navigation}: ProfileProps) => {
+
+  const logOutHandler = async() => {
+    try {
+      await AsyncStorage.removeItem('loggedIn');
+      navigation.reset({routes: [{name: Routes.Login}]});
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <View style={profileStyles.profileScreen}>
@@ -53,9 +58,3 @@ const profile = ({navigation}: ProfileProps) => {
     </View>
   );
 };
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  logOut: () => dispatch(logOut()),
-});
-
-export const Profile = connect(null, mapDispatchToProps)(profile);
