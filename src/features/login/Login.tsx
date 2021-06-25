@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {View, Text} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {connect} from 'react-redux';
+import {ThunkDispatch} from 'redux-thunk';
+import {Action} from 'redux';
 
 import {loginStyles} from './loginScreenStyles';
 import {CustomButton} from '../../components/button/Button';
 import {Input} from '../../components/input/Input';
-import {testData} from '../../services/authService';
-import {emailPattern} from '../../services/emailPattern';
 import {Routes} from '../../navigation/Router';
+import {logIn, logOut} from '../../actions/loginActions';
+import {AppState} from '../../reducers/RootReducer';
+import {tryLogin} from '../../reducers/authReducer';
 
 type LoginScreenParamList = {
   [Routes.Main]: undefined;
@@ -19,44 +22,42 @@ interface LoginProps {
   navigation: NavigationProp;
 }
 
-export const Login = ({navigation}:LoginProps) => {
+interface Props extends LoginProps {
+  tryLogin: (credentials: {email: string; password: string}) => boolean;
+}
+
+const login: React.FC<Props> = ({navigation, tryLogin}) => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
 
-  const validUser =
-    inputEmail === testData.email && inputPassword === testData.password;
 
-  const tryEmail = (inputEmail: string) => {
-    setValidEmail(emailPattern.test(inputEmail));
-  };
+  const userIsAuth = useCallback(
+    async (credentials: {email: string; password: string}) => {
+      const statusAuth = await tryLogin(credentials);
+      weirdFuncName(statusAuth);
+    }, []);
 
-  const tryPassword = (inputPassword: string) => {
-    setValidPassword(inputPassword.length >= 8);
-  };
+  const weirdFuncName = (statusAuth: boolean) => {
+    if (statusAuth) {
+      navigation.reset({
+        routes: [{name: Routes.Main}]
+      });
+      return;
+    } else {
+      setValidEmail(inputPassword.length >= 8);
+      setValidPassword(inputEmail.length >= 4);
 
-  const loginChecker = () => {
-    tryEmail(inputEmail);
-    tryPassword(inputPassword);
-    if (validEmail && validPassword && validUser) {
-      setIsLoggedIn(true);
+      setInputEmail('');
+      setInputPassword('');
     }
   };
 
-  const loginHandler = async() =>{
-    try{
-      loginChecker();
-      const value = JSON.stringify(isLoggedIn)
-      await AsyncStorage.setItem('loggedIn', value)
-      navigation.navigate(Routes.Main);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const loginHandler = (): void => {
+    userIsAuth({email: inputEmail, password: inputPassword})
+  };
 
   return (
     <View style={loginStyles.container}>
@@ -84,3 +85,15 @@ export const Login = ({navigation}:LoginProps) => {
     </View>
   );
 };
+
+const mapStateToProps = (state: AppState) => ({
+  isLoggedIn: state.authReducer.isLoggedIn,
+})
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<{}, undefined, Action>) =>({
+  logIn: () => dispatch(logIn()),
+  logOut: () => dispatch(logOut()),
+  tryLogin: (credentials: {email: string; password: string}) => dispatch(tryLogin(credentials)),
+})
+
+export const Login = connect(mapStateToProps, mapDispatchToProps)(login);

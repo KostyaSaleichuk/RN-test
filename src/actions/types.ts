@@ -7,3 +7,4 @@ export enum Constants {
   ADD_PAGE = 'ADD_PAGE',
   ADD_DATA = 'ADD_DATA',
 }
+ 

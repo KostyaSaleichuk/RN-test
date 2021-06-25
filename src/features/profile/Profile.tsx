@@ -1,11 +1,14 @@
 import React from 'react';
 import {View, Text, Image, Alert} from 'react-native';
 import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
+import {connect} from 'react-redux';
+import {ThunkDispatch} from 'redux-thunk';
+import {Action} from 'redux';
 
 import {CustomButton} from '../../components/button/Button';
 import {profileStyles} from './profileScreenStyles';
 import {Routes} from '../../navigation/Router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {logoutHandler} from '../../reducers/authReducer';
 
 type ProfileTabParamList = {
   [Routes.Login]: undefined;
@@ -20,16 +23,16 @@ interface ProfileProps {
   navigation: NavigationProp;
 }
 
-export const Profile = ({navigation}: ProfileProps) => {
+interface Props extends ProfileProps {
+  logOutHandler: () => void
+}
 
-  const logOutHandler = async() => {
-    try {
-      await AsyncStorage.removeItem('loggedIn');
-      navigation.reset({routes: [{name: Routes.Login}]});
-    } catch (error) {
-      console.log(error)
-    }
-  }
+ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
+
+  const logoutHandler = async () => {
+    await logOutHandler();
+    navigation.reset({routes: [{name: Routes.Login}]});
+  };
 
   return (
     <View style={profileStyles.profileScreen}>
@@ -53,8 +56,14 @@ export const Profile = ({navigation}: ProfileProps) => {
             )
           }
         />
-        <CustomButton text="Logout" onPress={logOutHandler} />
+        <CustomButton text="Logout" onPress={logoutHandler} />
       </View>
     </View>
   );
 };
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<{}, undefined, Action>) => ({
+  logOutHandler: () => dispatch(logoutHandler())
+});
+
+export const Profile = connect(null, mapDispatchToProps)(profile);
