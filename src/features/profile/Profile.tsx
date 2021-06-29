@@ -62,7 +62,7 @@ interface Props extends ProfileProps {
   );
 };
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<{}, undefined, Action>) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch<{}, null, Action>) => ({
   logOutHandler: () => dispatch(logoutHandler())
 });
 

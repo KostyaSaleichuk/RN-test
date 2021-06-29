@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import {MainTabs} from './MainTabs';
 import {LoginStack} from './LoginStack';
-import {AppState} from '../reducers/RootReducer'
+import {AppState} from '../reducers/RootReducer';
 
 const Stack = createStackNavigator();
 
@@ -17,7 +17,7 @@ export enum Routes {
 }
 
 interface RouterProps {
-  auth:boolean,
+  auth: boolean,
 }
 
 const router: React.FC<RouterProps> = props => (

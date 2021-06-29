@@ -34,7 +34,7 @@ export const setPage = (): SetPage => ({
 
 interface AddData {
   type: Constants.ADD_DATA;
-  data: Array<{download_url:string, author:string}>;
+  data: Array<{download_url: string; author: string}>;
 }
 
 export const addData = (data: AddData) => ({
@@ -42,9 +42,18 @@ export const addData = (data: AddData) => ({
   data: data,
 });
 
+interface RemoveData {
+  type: Constants.REMOVE_DATA;
+}
+
+export const removeData = (): RemoveData => ({
+  type: Constants.REMOVE_DATA,
+});
+
 export type FeedActionTypes =
   | Refresh
   | StartLoading
   | StopLoading
   | SetPage
-  | AddData;
+  | AddData
+  | RemoveData;

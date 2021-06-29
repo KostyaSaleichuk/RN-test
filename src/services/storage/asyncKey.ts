@@ -1,3 +1,3 @@
 export enum AsyncKey {
-    statusAuth ='statusAuth',
+  statusAuth = 'statusAuth',
 }

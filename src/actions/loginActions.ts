@@ -17,16 +17,13 @@ export const logOut = (): LogOut => ({
 });
 
 interface SetAuth {
-  type: typeof Constants.SET_AUTH,
-  data: boolean,
+  type: typeof Constants.SET_AUTH;
+  data: boolean;
 }
 
 export const setAuth = (setAuth: boolean): SetAuth => ({
   type: Constants.SET_AUTH,
   data: setAuth,
-})
+});
 
-export type LoginActionTypes =
-  | LogIn
-  | LogOut
-  | SetAuth;
+export type LoginActionTypes = LogIn | LogOut | SetAuth;
