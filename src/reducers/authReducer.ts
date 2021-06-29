@@ -2,15 +2,15 @@ import {Dispatch} from 'redux';
 
 import {Constants} from '../actions/types';
 import {LoginActionTypes} from '../actions/loginActions';
-import {logIn, logOut} from '../actions/loginActions';
+import {logIn, logOut, setAuth} from '../actions/loginActions';
 import {authentication} from '../services/storage/authentication';
 
 export interface AuthState {
-  isLoggedIn: boolean;
+  auth: boolean,
 }
 
 const initialState: AuthState = {
-  isLoggedIn: false,
+  auth: false,
 };
 
 export const authReducer = (state = initialState, action: LoginActionTypes) => {
@@ -18,22 +18,27 @@ export const authReducer = (state = initialState, action: LoginActionTypes) => {
     case Constants.LOG_IN:
       return {
         ...state,
-        isLoggedIn: true,
+        auth: true,
       };
     case Constants.LOG_OUT:
       return {
         ...state,
-        isLoggedIn: false,
+        auth: false,
       };
+      case Constants.SET_AUTH:
+        return {
+          ...state,
+          auth: action.data,
+        }
     default:
       return state;
   }
 };
 
-export const tryLogin = (credentials:{email:string; password:string}) => (dispatch: Dispatch) => {
+export const tryLogin = (credentials: {email:string; password:string}) => (dispatch: Dispatch) => {
   const result = (credentials.email === 'email@email.com' && credentials.password === '12345678') || false;
   if (result) {
-    dispatch(logIn());
+    dispatch(setAuth(result));
     authentication.tryLogin();
   }
   return result;

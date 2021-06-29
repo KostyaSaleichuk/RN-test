@@ -6,5 +6,6 @@ export enum Constants {
   STOP_LOADING = 'STOP_LOADING',
   ADD_PAGE = 'ADD_PAGE',
   ADD_DATA = 'ADD_DATA',
+  SET_AUTH = 'SET_AUTH',
 }
  

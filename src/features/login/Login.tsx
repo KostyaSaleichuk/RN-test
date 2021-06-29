@@ -9,8 +9,6 @@ import {loginStyles} from './loginScreenStyles';
 import {CustomButton} from '../../components/button/Button';
 import {Input} from '../../components/input/Input';
 import {Routes} from '../../navigation/Router';
-import {logIn, logOut} from '../../actions/loginActions';
-import {AppState} from '../../reducers/RootReducer';
 import {tryLogin} from '../../reducers/authReducer';
 
 type LoginScreenParamList = {
@@ -86,14 +84,8 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
-  isLoggedIn: state.authReducer.isLoggedIn,
-})
-
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, undefined, Action>) =>({
-  logIn: () => dispatch(logIn()),
-  logOut: () => dispatch(logOut()),
   tryLogin: (credentials: {email: string; password: string}) => dispatch(tryLogin(credentials)),
 })
 
-export const Login = connect(mapStateToProps, mapDispatchToProps)(login);
+export const Login = connect(null, mapDispatchToProps)(login);

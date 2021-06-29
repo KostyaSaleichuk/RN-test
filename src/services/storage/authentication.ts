@@ -1,5 +1,4 @@
 import {storeApi} from './storeApi';
-
 import {AsyncKey} from './asyncKey';
 
 class Authentication {
@@ -15,7 +14,6 @@ class Authentication {
         const statusAuth = await storeApi.getString(AsyncKey.statusAuth);
         return (statusAuth || false) as boolean;
     };
-
 }
 
 export const authentication = new Authentication();

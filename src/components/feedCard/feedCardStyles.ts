@@ -7,10 +7,11 @@ export const listStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#3a474e',
     paddingTop: 5,
+    paddingHorizontal: 20,
   },
   itemImage: {
-    width: 320,
-    height: 200,
+    width: 360,
+    height: 210,
     borderRadius: 15,
   },
   itemTextContainer: {
@@ -20,7 +21,7 @@ export const listStyles = StyleSheet.create({
     borderBottomLeftRadius: 15,
     position: 'relative',
     bottom: 29,
-    width: '100%',
+    width: 360,
   },
   itemText: {
     color: 'white',
