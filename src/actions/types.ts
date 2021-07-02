@@ -8,4 +8,5 @@ export enum Constants {
   ADD_DATA = 'ADD_DATA',
   SET_AUTH = 'SET_AUTH',
   REMOVE_DATA = 'REMOVE_DATA',
+  CHANGE_THEME = 'CHANGE_THEME',
 }

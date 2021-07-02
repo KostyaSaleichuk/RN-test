@@ -6,6 +6,5 @@ export const loginStyles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#3a474e',
   },
 });

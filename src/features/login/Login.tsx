@@ -4,6 +4,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {connect} from 'react-redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {Action} from 'redux';
+import {useTheme} from '@react-navigation/native';
 
 import {loginStyles} from './loginScreenStyles';
 import {CustomButton} from '../../components/button/Button';
@@ -31,17 +32,18 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
 
-
   const userIsAuth = useCallback(
     async (credentials: {email: string; password: string}) => {
-      const statusAuth = await tryLogin(credentials);
+      const statusAuth = tryLogin(credentials);
       weirdFuncName(statusAuth);
-    }, []);
+    },
+    [],
+  );
 
   const weirdFuncName = (statusAuth: boolean) => {
     if (statusAuth) {
       navigation.reset({
-        routes: [{name: Routes.Main}]
+        routes: [{name: Routes.Main}],
       });
       return;
     } else {
@@ -54,11 +56,13 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
   };
 
   const loginHandler = (): void => {
-    userIsAuth({email: inputEmail, password: inputPassword})
+    userIsAuth({email: inputEmail, password: inputPassword});
   };
 
+  const {colors} = useTheme();
+
   return (
-    <View style={loginStyles.container}>
+    <View style={[loginStyles.container, {backgroundColor: colors.primary}]}>
       <Input
         placeholder="Enter your Email"
         onChangeText={setInputEmail}
@@ -66,7 +70,7 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
         keyboardType={'email-address'}
       />
       {validEmail ? null : (
-        <Text style={{color: '#f54242'}}>Email is not valid</Text>
+        <Text style={{color: colors.notification}}>Email is not valid</Text>
       )}
       <Input
         placeholder="Enter your password"
@@ -75,7 +79,7 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
         value={inputPassword}
       />
       {validPassword ? null : (
-        <Text style={{color: '#f54242'}}>
+        <Text style={{color: colors.notification}}>
           Password length must be min 8 characters long
         </Text>
       )}
@@ -84,8 +88,11 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<{}, undefined, Action>) =>({
-  tryLogin: (credentials: {email: string; password: string}) => dispatch(tryLogin(credentials)),
-})
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<{}, undefined, Action>,
+) => ({
+  tryLogin: (credentials: {email: string; password: string}) =>
+    dispatch(tryLogin(credentials)),
+});
 
 export const Login = connect(null, mapDispatchToProps)(login);

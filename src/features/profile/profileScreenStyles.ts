@@ -6,11 +6,9 @@ export const profileStyles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#3a474e',
   },
   profileContainer: {
     margin: 30,
-    backgroundColor: '#65727a',
     width: '90%',
     padding: 15,
     borderRadius: 15,
@@ -20,23 +18,25 @@ export const profileStyles = StyleSheet.create({
     height: 80,
     width: 80,
     borderRadius: 40,
-    backgroundColor: '#000',
   },
   textContainer: {
     alignSelf: 'center',
     paddingLeft: 20,
   },
   profileText: {
-    color: '#FFF',
     fontSize: 14,
     textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: 'column',
     width: '100%',
-    height: 125,
-    paddingBottom: 20,
+    height: 100,
     alignItems: 'center',
-    justifyContent: 'space-between',
+  },
+  themeChangerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    width: '100%',
   },
 });

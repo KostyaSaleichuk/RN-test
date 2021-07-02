@@ -5,7 +5,6 @@ export const listStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#3a474e',
     paddingTop: 5,
     paddingHorizontal: 20,
   },

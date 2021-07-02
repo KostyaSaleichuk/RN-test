@@ -3,6 +3,7 @@ import {View, FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {Action} from 'redux';
 import {ThunkDispatch} from 'redux-thunk';
+import {useTheme} from '@react-navigation/native';
 
 import {FeedCard} from '../../components/feedCard/FeedCard';
 import {feedScreenStyles} from './feedScreenStyles';
@@ -24,26 +25,26 @@ interface FeedProps extends FeedState {
 }
 
 const feed = (props: FeedProps) => {
-   useEffect(() => {
-     props.startLoading;
-     props.getData(props.page);
-   }, []);
+  useEffect(() => {
+    props.setPage();
+    props.getData(props.page);
+  }, []);
 
   const loadMore = () => {
-    props.startLoading;
     props.setPage();
     props.getData(props.page);
   };
 
   const refreshHandler = () => {
-    props.startLoading();
     props.refresh();
     props.getData(props.page);
-    props.stopLoading();
   };
 
+  const {colors} = useTheme();
+
   return (
-    <View style={feedScreenStyles.feedScreen}>
+    <View
+      style={[feedScreenStyles.feedScreen, {backgroundColor: colors.primary}]}>
       <FlatList
         renderItem={data => (
           <FeedCard url={data.item.download_url} author={data.item.author} />
@@ -51,7 +52,7 @@ const feed = (props: FeedProps) => {
         data={props.data}
         keyExtractor={(item, id) => id.toString()}
         onEndReached={loadMore}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.3}
         onRefresh={refreshHandler}
         refreshing={props.isLoading}
       />
