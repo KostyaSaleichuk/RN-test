@@ -42,18 +42,9 @@ export const addData = (data: AddData) => ({
   data: data,
 });
 
-interface RemoveData {
-  type: Constants.REMOVE_DATA;
-}
-
-export const removeData = (): RemoveData => ({
-  type: Constants.REMOVE_DATA,
-});
-
 export type FeedActionTypes =
   | Refresh
   | StartLoading
   | StopLoading
   | SetPage
-  | AddData
-  | RemoveData;
+  | AddData;

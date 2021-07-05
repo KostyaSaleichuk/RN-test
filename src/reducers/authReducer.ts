@@ -6,11 +6,11 @@ import {logIn, logOut, setAuth} from '../actions/loginActions';
 import {authentication} from '../services/storage/authentication';
 
 export interface AuthState {
-  auth: boolean;
+  isAuth: boolean;
 }
 
 const initialState: AuthState = {
-  auth: false,
+  isAuth: false,
 };
 
 export const authReducer = (state = initialState, action: LoginActionTypes) => {
@@ -18,17 +18,17 @@ export const authReducer = (state = initialState, action: LoginActionTypes) => {
     case Constants.LOG_IN:
       return {
         ...state,
-        auth: true,
+        isAuth: true,
       };
     case Constants.LOG_OUT:
       return {
         ...state,
-        auth: false,
+        isAuth: false,
       };
     case Constants.SET_AUTH:
       return {
         ...state,
-        auth: action.data,
+        isAuth: action.data,
       };
     default:
       return state;
@@ -38,9 +38,8 @@ export const authReducer = (state = initialState, action: LoginActionTypes) => {
 export const tryLogin =
   (credentials: {email: string; password: string}) => (dispatch: Dispatch) => {
     const result =
-      (credentials.email === 'email@email.com' &&
-        credentials.password === '12345678') ||
-      false;
+      credentials.email === 'email@email.com' &&
+      credentials.password === '12345678';
     if (result) {
       dispatch(setAuth(result));
       authentication.tryLogin();

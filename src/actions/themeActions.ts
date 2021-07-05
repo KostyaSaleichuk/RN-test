@@ -1,13 +1,23 @@
 import {Constants} from './types';
 
-interface ChangeTheme {
-  type: Constants.CHANGE_THEME;
-  isDark: boolean;
+interface SetLightTheme {
+  type: Constants.SET_LIGHT_THEME;
+  theme: string;
 }
 
-export const changeTheme = (isDark: boolean): ChangeTheme => ({
-  type: Constants.CHANGE_THEME,
-  isDark: isDark,
+export const setLightTheme = (theme: string): SetLightTheme => ({
+  type: Constants.SET_LIGHT_THEME,
+  theme: theme,
 });
 
-export type ThemeActionTypes = ChangeTheme;
+interface SetDarkTheme {
+  type: Constants.SET_DARK_THEME;
+  theme: string;
+}
+
+export const setDarkTheme = (theme: string): SetDarkTheme => ({
+  type: Constants.SET_DARK_THEME,
+  theme: theme,
+});
+
+export type ThemeActionTypes = SetLightTheme | SetDarkTheme;

@@ -23,20 +23,24 @@ export const profileStyles = StyleSheet.create({
     alignSelf: 'center',
     paddingLeft: 20,
   },
-  profileText: {
+  text: {
     fontSize: 14,
     textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: 'column',
     width: '100%',
-    height: 100,
+    height: '15%',
     alignItems: 'center',
   },
   themeChangerContainer: {
+    alignItems: 'center',
+    width: '100%',
+  },
+  radioContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
-    width: '100%',
+    justifyContent: 'space-between',
+    width: '55%',
   },
 });

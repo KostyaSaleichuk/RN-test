@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {MainTabs} from './MainTabs';
 import {LoginStack} from './LoginStack';
 import {AppState} from '../reducers/RootReducer';
-import {darkTheme, lightTheme} from '../theme';
+import {darkTheme, lightTheme, Themes} from '../theme';
 
 const Stack = createStackNavigator();
 
@@ -18,14 +18,15 @@ export enum Routes {
 }
 
 interface RouterProps {
-  auth: boolean;
-  isDark: boolean;
+  isAuth: boolean;
+  theme: string;
 }
 
 const router: React.FC<RouterProps> = props => (
-  <NavigationContainer theme={props.isDark ? darkTheme : lightTheme}>
+  <NavigationContainer
+    theme={props.theme === Themes.dark ? darkTheme : lightTheme}>
     <Stack.Navigator
-      initialRouteName={props.auth ? Routes.Main : Routes.Login}
+      initialRouteName={props.isAuth ? Routes.Main : Routes.Login}
       screenOptions={{headerShown: false}}>
       <Stack.Screen name={Routes.Login} component={LoginStack} />
       <Stack.Screen name={Routes.Main} component={MainTabs} />
@@ -34,8 +35,8 @@ const router: React.FC<RouterProps> = props => (
 );
 
 const mapStateToProps = (state: AppState) => ({
-  auth: state.authReducer.auth,
-  isDark: state.themeReducer.isDark,
+  isAuth: state.authReducer.isAuth,
+  theme: state.themeReducer.theme,
 });
 
 export const Router = connect(mapStateToProps)(router);

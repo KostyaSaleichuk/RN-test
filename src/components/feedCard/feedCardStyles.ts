@@ -1,29 +1,27 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const listStyles = StyleSheet.create({
   itemContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 5,
-    paddingHorizontal: 20,
+    width: windowWidth,
+    paddingTop: 10,
+    paddingHorizontal: 15,
   },
   itemImage: {
-    width: 360,
-    height: 210,
-    borderRadius: 15,
-  },
-  itemTextContainer: {
-    backgroundColor: 'black',
-    opacity: 0.65,
-    borderBottomRightRadius: 15,
-    borderBottomLeftRadius: 15,
-    position: 'relative',
-    bottom: 29,
-    width: 360,
+    width: '100%',
+    height: windowHeight / 3.5,
+    borderRadius: 20,
+    overflow: 'hidden',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
   },
   itemText: {
-    color: 'white',
+    color: '#FFFFFF',
+    backgroundColor: '#000000a0',
+    width: '100%',
+    textAlign: 'center',
     fontSize: 14,
     padding: 5,
     alignSelf: 'center',

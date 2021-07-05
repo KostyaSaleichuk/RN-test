@@ -1,3 +1,8 @@
+export enum Themes {
+  dark = 'dark',
+  light = 'light',
+}
+
 export const darkTheme = {
   dark: true,
   colors: {
@@ -13,9 +18,9 @@ export const darkTheme = {
 export const lightTheme = {
   dark: false,
   colors: {
-    primary: 'rgb(197, 184, 177)',
-    background: 'rgb(255, 255, 255)',
-    card: 'rgb(154, 141, 133)',
+    primary: 'rgb(180, 206, 220)',
+    background: 'rgb(244, 243, 244)',
+    card: 'rgb(218, 233, 253)',
     text: 'rgb(0, 0, 0)',
     border: 'rgb(0, 0, 0)',
     notification: 'rgb(225, 52, 52)',

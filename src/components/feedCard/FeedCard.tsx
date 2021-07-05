@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, Text} from 'react-native';
+import {View, ImageBackground, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 import {listStyles} from './feedCardStyles';
@@ -14,10 +14,9 @@ export const FeedCard: React.FC<CardProps> = ({url, author}) => {
 
   return (
     <View style={[listStyles.itemContainer, {backgroundColor: colors.primary}]}>
-      <Image source={{uri: url}} style={listStyles.itemImage} />
-      <View style={listStyles.itemTextContainer}>
+      <ImageBackground source={{uri: url}} style={listStyles.itemImage}>
         <Text style={listStyles.itemText}>{author}</Text>
-      </View>
+      </ImageBackground>
     </View>
   );
 };
