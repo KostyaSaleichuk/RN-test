@@ -2,7 +2,7 @@ import {Dispatch} from 'redux';
 
 import {Constants} from '../actions/types';
 import {FeedActionTypes} from '../actions/feedActions';
-import {addData} from '../actions/feedActions';
+import {addPosts} from '../actions/feedActions';
 import {getImages} from '../services/imagesRequest';
 
 export interface FeedState {
@@ -29,7 +29,7 @@ export const feedReducer = (state = initialState, action: FeedActionTypes) => {
         ...state,
         isLoading: false,
       };
-    case Constants.ADD_DATA:
+    case Constants.ADD_POSTS:
       return {
         ...state,
         data: [...state.data].concat(action.data),
@@ -52,5 +52,5 @@ export const feedReducer = (state = initialState, action: FeedActionTypes) => {
 
 export const getData = (page: number) => async (dispatch: Dispatch) => {
   const response = await getImages(page);
-  dispatch(addData(response));
+  dispatch(addPosts(response));
 };

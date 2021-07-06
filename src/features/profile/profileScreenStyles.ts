@@ -41,6 +41,7 @@ export const profileStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '55%',
+    width: '50%',
+    height: '15%',
   },
 });

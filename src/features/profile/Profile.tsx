@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image} from 'react-native';
 import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
 import {connect} from 'react-redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {Action} from 'redux';
 import {useTheme} from '@react-navigation/native';
-import {RadioButton} from 'react-native-paper';
 
 import {CustomButton} from '../../components/button/Button';
 import {profileStyles} from './profileScreenStyles';
@@ -13,8 +12,10 @@ import {Routes} from '../../navigation/Router';
 import {logoutHandler} from '../../reducers/authReducer';
 import {AppState} from '../../reducers/RootReducer';
 import {testData} from '../../services/authService';
-import {setLightTheme, setDarkTheme} from '../../actions/themeActions';
+import {setTheme} from '../../actions/themeActions';
 import {Themes} from '../../theme';
+import {RadioButton} from '../../components/radioButton/radioButton';
+import {radioButtonStyles} from '../../components/radioButton/radioButtonStyles';
 
 type ProfileTabParamList = {
   [Routes.Login]: undefined;
@@ -31,16 +32,14 @@ interface ProfileProps {
 
 interface Props extends ProfileProps {
   logOutHandler: () => void;
-  setLightTheme: (theme: string) => void;
-  setDarkTheme: (theme: string) => void;
+  setTheme: (theme: string) => void;
   theme: string;
 }
 
 const profile: React.FC<Props> = ({
   navigation,
   logOutHandler,
-  setLightTheme,
-  setDarkTheme,
+  setTheme,
   theme,
 }) => {
   const logoutHandler = () => {
@@ -49,7 +48,7 @@ const profile: React.FC<Props> = ({
   };
 
   const {colors} = useTheme();
-
+  const [checked, setChecked] = useState('light');
   return (
     <View
       style={[profileStyles.profileScreen, {backgroundColor: colors.primary}]}>
@@ -77,10 +76,20 @@ const profile: React.FC<Props> = ({
             Change theme to light
           </Text>
           <RadioButton
-            value="light"
-            status={theme === Themes.light ? 'checked' : 'unchecked'}
-            onPress={() => setLightTheme(Themes.light)}
-            color={colors.notification}
+            style={
+              checked === 'light'
+                ? [
+                    radioButtonStyles.checked,
+                    {backgroundColor: colors.background},
+                  ]
+                : [
+                    radioButtonStyles.container,
+                    {borderColor: colors.background},
+                  ]
+            }
+            onPress={() => {
+              setTheme(Themes.light), setChecked('light');
+            }}
           />
         </View>
         <View style={profileStyles.radioContainer}>
@@ -88,10 +97,20 @@ const profile: React.FC<Props> = ({
             Change theme to dark
           </Text>
           <RadioButton
-            value="dark"
-            status={theme === Themes.dark ? 'checked' : 'unchecked'}
-            onPress={() => setDarkTheme(Themes.dark)}
-            color={colors.notification}
+            style={
+              checked === 'dark'
+                ? [
+                    radioButtonStyles.checked,
+                    {backgroundColor: colors.background},
+                  ]
+                : [
+                    radioButtonStyles.container,
+                    {borderColor: colors.background},
+                  ]
+            }
+            onPress={() => {
+              setTheme(Themes.dark), setChecked('dark');
+            }}
           />
         </View>
       </View>
@@ -108,8 +127,7 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, null, Action>) => ({
   logOutHandler: () => dispatch(logoutHandler()),
-  setLightTheme: (theme: string) => dispatch(setLightTheme(theme)),
-  setDarkTheme: (theme: string) => dispatch(setDarkTheme(theme)),
+  setTheme: (theme: string) => dispatch(setTheme(theme)),
 });
 
 export const Profile = connect(mapStateToProps, mapDispatchToProps)(profile);

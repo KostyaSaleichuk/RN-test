@@ -15,15 +15,10 @@ export const themeReducer = (
   action: ThemeActionTypes,
 ) => {
   switch (action.type) {
-    case Constants.SET_LIGHT_THEME:
+    case Constants.SET_THEME:
       return {
         ...state,
-        theme: Themes.light,
-      };
-    case Constants.SET_DARK_THEME:
-      return {
-        ...state,
-        theme: Themes.dark,
+        theme: action.theme,
       };
     default:
       return state;

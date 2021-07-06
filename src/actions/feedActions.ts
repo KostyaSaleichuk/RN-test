@@ -32,13 +32,13 @@ export const setPage = (): SetPage => ({
   type: Constants.ADD_PAGE,
 });
 
-interface AddData {
-  type: Constants.ADD_DATA;
+interface AddPosts {
+  type: Constants.ADD_POSTS;
   data: Array<{download_url: string; author: string}>;
 }
 
-export const addData = (data: AddData) => ({
-  type: Constants.ADD_DATA,
+export const addPosts = (data: AddPosts) => ({
+  type: Constants.ADD_POSTS,
   data: data,
 });
 
@@ -47,4 +47,4 @@ export type FeedActionTypes =
   | StartLoading
   | StopLoading
   | SetPage
-  | AddData;
+  | AddPosts;
