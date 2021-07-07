@@ -3,7 +3,7 @@ import {ThemeActionTypes} from '../actions/themeActions';
 import {Themes} from '../theme';
 
 export interface ThemeState {
-  theme: string;
+  theme: Themes;
 }
 
 const initialState: ThemeState = {

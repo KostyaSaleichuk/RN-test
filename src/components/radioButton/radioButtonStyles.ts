@@ -1,15 +1,17 @@
 import {StyleSheet} from 'react-native';
 
 export const radioButtonStyles = StyleSheet.create({
-  container: {
+  outerCircle: {
     height: 24,
     width: 24,
     borderRadius: 12,
     borderWidth: 2,
+    justifyContent: 'center',
   },
-  checked: {
-    height: 24,
-    width: 24,
-    borderRadius: 12,
+  innerCircle: {
+    height: 12,
+    width: 12,
+    borderRadius: 6,
+    alignSelf: 'center',
   },
 });

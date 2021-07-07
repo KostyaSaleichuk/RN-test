@@ -1,11 +1,11 @@
 import {Constants} from './types';
-
+import {Themes} from '../theme';
 interface SetTheme {
   type: Constants.SET_THEME;
-  theme: string;
+  theme: Themes;
 }
 
-export const setTheme = (theme: string): SetTheme => ({
+export const setTheme = (theme: Themes): SetTheme => ({
   type: Constants.SET_THEME,
   theme: theme,
 });
