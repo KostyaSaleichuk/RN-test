@@ -1,15 +1,14 @@
-import React from "react";
-import { Provider } from "react-redux";
+import React from 'react';
+import {Provider} from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 
-import { Router } from "./src/navigation/Router";
-import { authentication } from "./src/services/storage/authentication";
-import { store } from "./src/store";
-import { setAuth } from "./src/actions/loginActions";
-import {Indicator} from "./src/components/ActivityIndicator/activityIndicator";
+import {Router} from './src/navigation/Router';
+import {authentication} from './src/services/storage/authentication';
+import {store} from './src/store';
+import {setAuth} from './src/actions/loginActions';
+import {Indicator} from './src/components/ActivityIndicator/activityIndicator';
 
 export const App = () => {
-
   const [isLoading, setIsLoading] = React.useState(true);
 
   const userIsAuth = React.useCallback(async () => {
@@ -21,10 +20,10 @@ export const App = () => {
   React.useEffect(() => {
     userIsAuth();
     SplashScreen.hide();
-  }, [userIsAuth])
+  }, [userIsAuth]);
 
   if (isLoading) {
-    return <Indicator />
+    return <Indicator />;
   }
 
   return (
