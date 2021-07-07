@@ -7,6 +7,8 @@ import {authentication} from './src/services/storage/authentication';
 import {store} from './src/store';
 import {setAuth} from './src/actions/loginActions';
 import {Indicator} from './src/components/ActivityIndicator/activityIndicator';
+import {appTheme} from './src/services/storage/theme';
+import {setTheme} from './src/actions/themeActions';
 
 export const App = () => {
   const [isLoading, setIsLoading] = React.useState(true);
@@ -17,8 +19,14 @@ export const App = () => {
     setIsLoading(false);
   }, []);
 
+  const getTheme = React.useCallback(async () => {
+    const theme = await appTheme.getTheme();
+    store.dispatch(setTheme(theme));
+  }, []);
+
   React.useEffect(() => {
     userIsAuth();
+    getTheme();
     SplashScreen.hide();
   }, [userIsAuth]);
 

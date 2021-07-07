@@ -1,6 +1,10 @@
+import {Dispatch} from 'redux';
+
 import {Constants} from '../actions/types';
 import {ThemeActionTypes} from '../actions/themeActions';
 import {Themes} from '../theme';
+import {appTheme} from '../services/storage/theme';
+import {setTheme} from '../actions/themeActions';
 
 export interface ThemeState {
   theme: Themes;
@@ -23,4 +27,9 @@ export const themeReducer = (
     default:
       return state;
   }
+};
+
+export const themePicker = (theme: Themes) => (dispatch: Dispatch) => {
+  dispatch(setTheme(theme));
+  appTheme.saveTheme(theme);
 };

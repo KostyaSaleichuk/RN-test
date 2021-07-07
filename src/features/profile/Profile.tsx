@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
 import {connect} from 'react-redux';
@@ -12,9 +12,9 @@ import {Routes} from '../../navigation/Router';
 import {logoutHandler} from '../../reducers/authReducer';
 import {AppState} from '../../reducers/RootReducer';
 import {testData} from '../../services/authService';
-import {setTheme} from '../../actions/themeActions';
 import {Themes} from '../../theme';
 import {RadioButton} from '../../components/radioButton/radioButton';
+import {themePicker} from '../../reducers/themeReducer';
 
 type ProfileTabParamList = {
   [Routes.Login]: undefined;
@@ -106,7 +106,7 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, null, Action>) => ({
   logOutHandler: () => dispatch(logoutHandler()),
-  setTheme: (theme: Themes) => dispatch(setTheme(theme)),
+  setTheme: (theme: Themes) => dispatch(themePicker(theme)),
 });
 
 export const Profile = connect(mapStateToProps, mapDispatchToProps)(profile);
