@@ -14,31 +14,31 @@ import {
   refresh,
 } from '../../actions/feedActions';
 import {FeedState} from '../../reducers/feedReducer';
-import {getData} from '../../middlewares/feedThunk';
+import {getPosts} from '../../middlewares/feedThunk';
 import {AppState} from '../../reducers/RootReducer';
 
 interface FeedProps extends FeedState {
   startLoading: () => void;
   stopLoading: () => void;
   setPage: () => void;
-  getData: (page: number) => void;
+  getPosts: (page: number) => void;
   refresh: () => void;
 }
 
 const feed = (props: FeedProps) => {
   useEffect(() => {
     props.setPage();
-    props.getData(props.page);
+    props.getPosts(props.page);
   }, []);
 
   const loadMore = () => {
     props.setPage();
-    props.getData(props.page);
+    props.getPosts(props.page);
   };
 
   const refreshHandler = () => {
     props.refresh();
-    props.getData(props.page);
+    props.getPosts(props.page);
   };
 
   const {colors} = useTheme();
@@ -74,7 +74,7 @@ const mapDispatchToProps = (
   stopLoading: () => dispatch(stopLoading()),
   setPage: () => dispatch(setPage()),
   refresh: () => dispatch(refresh()),
-  getData: (page: number) => dispatch(getData(page)),
+  getPosts: (page: number) => dispatch(getPosts(page)),
 });
 
 export const Feed = connect(mapStateToProps, mapDispatchToProps)(feed);

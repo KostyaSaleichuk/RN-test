@@ -5,14 +5,14 @@ import {authentication} from '../services/storage/authentication';
 
 export const tryLogin =
   (credentials: {email: string; password: string}) => (dispatch: Dispatch) => {
-    const result =
+    const validCreds =
       credentials.email === 'email@email.com' &&
       credentials.password === '12345678';
-    if (result) {
-      dispatch(setAuth(result));
+    if (validCreds) {
+      dispatch(setAuth(validCreds));
       authentication.tryLogin();
     }
-    return result;
+    return validCreds;
   };
 
 export const logoutHandler = () => (dispatch: Dispatch) => {
