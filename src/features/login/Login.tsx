@@ -10,7 +10,7 @@ import {loginStyles} from './loginScreenStyles';
 import {CustomButton} from '../../components/button/Button';
 import {Input} from '../../components/input/Input';
 import {Routes} from '../../navigation/Router';
-import {tryLogin} from '../../reducers/authReducer';
+import {tryLogin} from '../../middlewares/loginThunk';
 
 type LoginScreenParamList = {
   [Routes.Main]: undefined;

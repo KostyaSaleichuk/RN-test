@@ -13,7 +13,8 @@ import {
   setPage,
   refresh,
 } from '../../actions/feedActions';
-import {getData, FeedState} from '../../reducers/feedReducer';
+import {FeedState} from '../../reducers/feedReducer';
+import {getData} from '../../middlewares/feedThunk';
 import {AppState} from '../../reducers/RootReducer';
 
 interface FeedProps extends FeedState {

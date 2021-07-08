@@ -1,9 +1,5 @@
-import {Dispatch} from 'redux';
-
 import {Constants} from '../actions/types';
 import {FeedActionTypes} from '../actions/feedActions';
-import {addPosts} from '../actions/feedActions';
-import {getImages} from '../services/imagesRequest';
 
 export interface FeedState {
   isLoading: boolean;
@@ -48,9 +44,4 @@ export const feedReducer = (state = initialState, action: FeedActionTypes) => {
     default:
       return state;
   }
-};
-
-export const getData = (page: number) => async (dispatch: Dispatch) => {
-  const response = await getImages(page);
-  dispatch(addPosts(response));
 };

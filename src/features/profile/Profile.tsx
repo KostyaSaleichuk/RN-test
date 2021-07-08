@@ -9,12 +9,12 @@ import {useTheme} from '@react-navigation/native';
 import {CustomButton} from '../../components/button/Button';
 import {profileStyles} from './profileScreenStyles';
 import {Routes} from '../../navigation/Router';
-import {logoutHandler} from '../../reducers/authReducer';
+import {logoutHandler} from '../../middlewares/loginThunk';
+import {chooseTheme} from '../../middlewares/themeThunk';
 import {AppState} from '../../reducers/RootReducer';
 import {testData} from '../../services/authService';
 import {Themes} from '../../theme';
 import {RadioButton} from '../../components/radioButton/radioButton';
-import {themePicker} from '../../reducers/themeReducer';
 
 type ProfileTabParamList = {
   [Routes.Login]: undefined;
@@ -106,7 +106,7 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, null, Action>) => ({
   logOutHandler: () => dispatch(logoutHandler()),
-  setTheme: (theme: Themes) => dispatch(themePicker(theme)),
+  setTheme: (theme: Themes) => dispatch(chooseTheme(theme)),
 });
 
 export const Profile = connect(mapStateToProps, mapDispatchToProps)(profile);
