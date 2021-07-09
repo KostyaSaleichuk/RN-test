@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, Image} from 'react-native';
 import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
 import {connect} from 'react-redux';
@@ -10,11 +10,11 @@ import {CustomButton} from '../../components/button/Button';
 import {profileStyles} from './profileScreenStyles';
 import {Routes} from '../../navigation/Router';
 import {logoutHandler} from '../../middlewares/loginThunk';
-import {chooseTheme} from '../../middlewares/themeThunk';
-import {AppState} from '../../reducers/RootReducer';
 import {testData} from '../../services/authService';
 import {Themes} from '../../theme';
 import {RadioButton} from '../../components/radioButton/radioButton';
+import {ThemeContext} from '../../context/themeContext';
+import {appTheme} from '../../services/storage/theme';
 
 type ProfileTabParamList = {
   [Routes.Login]: undefined;
@@ -31,22 +31,20 @@ interface ProfileProps {
 
 interface Props extends ProfileProps {
   logOutHandler: () => void;
-  setTheme: (theme: Themes) => void;
-  theme: Themes;
 }
 
-const profile: React.FC<Props> = ({
-  navigation,
-  logOutHandler,
-  setTheme,
-  theme,
-}) => {
+const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
+  const {theme, setTheme} = useContext(ThemeContext);
+  const {colors} = useTheme();
+
+  const chooseTheme = (theme: Themes) => {
+    appTheme.saveTheme(theme);
+  };
+
   const logoutHandler = () => {
     logOutHandler();
     navigation.reset({routes: [{name: Routes.Login}]});
   };
-
-  const {colors} = useTheme();
 
   return (
     <View
@@ -78,6 +76,7 @@ const profile: React.FC<Props> = ({
             isChecked={theme === Themes.light}
             onPress={() => {
               setTheme(Themes.light);
+              chooseTheme(theme);
             }}
           />
         </View>
@@ -89,6 +88,7 @@ const profile: React.FC<Props> = ({
             isChecked={theme === Themes.dark}
             onPress={() => {
               setTheme(Themes.dark);
+              chooseTheme(theme);
             }}
           />
         </View>
@@ -100,13 +100,8 @@ const profile: React.FC<Props> = ({
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
-  theme: state.themeReducer.theme,
-});
-
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, null, Action>) => ({
   logOutHandler: () => dispatch(logoutHandler()),
-  setTheme: (theme: Themes) => dispatch(chooseTheme(theme)),
 });
 
-export const Profile = connect(mapStateToProps, mapDispatchToProps)(profile);
+export const Profile = connect(null, mapDispatchToProps)(profile);
