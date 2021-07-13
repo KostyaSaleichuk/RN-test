@@ -1,6 +1,6 @@
 import {storeApi} from './storeApi';
 import {AsyncKey} from './asyncKey';
-import {Themes} from '../../theme';
+import {Themes} from '../../theme/theme';
 
 class AppTheme {
   public saveTheme = async (theme: Themes) => {

@@ -8,8 +8,8 @@ import {store} from './src/store';
 import {setAuth} from './src/actions/loginActions';
 import {Indicator} from './src/components/ActivityIndicator/activityIndicator';
 import {appTheme} from './src/services/storage/theme';
-import {ThemeContext} from './src/context/themeContext';
-import {Themes} from './src/theme';
+import {ThemeProvider} from './src/theme/themeProvider';
+import {Themes} from './src/theme/theme';
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,10 +37,10 @@ export const App = () => {
   }
 
   return (
-    <ThemeContext.Provider value={{theme, setTheme}}>
+    <ThemeProvider value={{theme, setTheme}}>
       <Provider store={store}>
         <Router />
       </Provider>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   );
 };

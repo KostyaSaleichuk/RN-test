@@ -5,6 +5,7 @@ import {useTheme} from '@react-navigation/native';
 import {radioButtonStyles} from './radioButtonStyles';
 
 interface RadioButtonProps {
+  onPressIn: () => void;
   onPress: () => void;
   isChecked: boolean;
 }
@@ -13,7 +14,7 @@ export const RadioButton: React.FC<RadioButtonProps> = props => {
   const {colors} = useTheme();
 
   return (
-    <TouchableOpacity onPress={props.onPress}>
+    <TouchableOpacity onPressIn={props.onPressIn} onPress={props.onPress}>
       <View
         style={[
           radioButtonStyles.outerCircle,

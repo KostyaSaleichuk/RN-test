@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
 import {connect} from 'react-redux';
@@ -11,10 +11,10 @@ import {profileStyles} from './profileScreenStyles';
 import {Routes} from '../../navigation/Router';
 import {logoutHandler} from '../../middlewares/loginThunk';
 import {testData} from '../../services/authService';
-import {Themes} from '../../theme';
+import {Themes} from '../../theme/theme';
 import {RadioButton} from '../../components/radioButton/radioButton';
-import {ThemeContext} from '../../context/themeContext';
 import {appTheme} from '../../services/storage/theme';
+import {withTheme} from '../../theme/themeHOC';
 
 type ProfileTabParamList = {
   [Routes.Login]: undefined;
@@ -31,10 +31,16 @@ interface ProfileProps {
 
 interface Props extends ProfileProps {
   logOutHandler: () => void;
+  theme: Themes;
+  setTheme: (theme: Themes) => void;
 }
 
-const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
-  const {theme, setTheme} = useContext(ThemeContext);
+const profile: React.FC<Props> = ({
+  navigation,
+  logOutHandler,
+  theme,
+  setTheme,
+}) => {
   const {colors} = useTheme();
 
   const chooseTheme = (theme: Themes) => {
@@ -74,8 +80,8 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
           </Text>
           <RadioButton
             isChecked={theme === Themes.light}
+            onPressIn={() => setTheme(Themes.light)}
             onPress={() => {
-              setTheme(Themes.light);
               chooseTheme(theme);
             }}
           />
@@ -86,8 +92,8 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
           </Text>
           <RadioButton
             isChecked={theme === Themes.dark}
+            onPressIn={() => setTheme(Themes.dark)}
             onPress={() => {
-              setTheme(Themes.dark);
               chooseTheme(theme);
             }}
           />
@@ -104,4 +110,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<{}, null, Action>) => ({
   logOutHandler: () => dispatch(logoutHandler()),
 });
 
-export const Profile = connect(null, mapDispatchToProps)(profile);
+export const connectedProfile = connect(null, mapDispatchToProps)(profile);
+
+export const Profile = withTheme(connectedProfile);
