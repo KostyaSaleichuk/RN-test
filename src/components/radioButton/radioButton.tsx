@@ -1,34 +1,30 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, TouchableOpacityProps} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 import {radioButtonStyles} from './radioButtonStyles';
 
-interface RadioButtonProps {
-  onPressIn: () => void;
-  onPress: () => void;
+interface RadioButtonProps extends TouchableOpacityProps {
   isChecked: boolean;
 }
 
-export const RadioButton: React.FC<RadioButtonProps> = props => {
+export const RadioButton: React.FC<RadioButtonProps> = ({
+  isChecked,
+  ...props
+}) => {
   const {colors} = useTheme();
-
   return (
-    <TouchableOpacity onPressIn={props.onPressIn} onPress={props.onPress}>
-      <View
-        style={[
-          radioButtonStyles.outerCircle,
-          {borderColor: colors.background},
-        ]}>
-        {props.isChecked ? (
-          <View
-            style={[
-              radioButtonStyles.innerCircle,
-              {backgroundColor: colors.background},
-            ]}
-          />
-        ) : null}
-      </View>
+    <TouchableOpacity
+      {...props}
+      style={[radioButtonStyles.outerCircle, {borderColor: colors.background}]}>
+      {isChecked ? (
+        <View
+          style={[
+            radioButtonStyles.innerCircle,
+            {backgroundColor: colors.background},
+          ]}
+        />
+      ) : null}
     </TouchableOpacity>
   );
 };

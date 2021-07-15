@@ -14,7 +14,7 @@ import {testData} from '../../services/authService';
 import {Themes} from '../../theme/theme';
 import {RadioButton} from '../../components/radioButton/radioButton';
 import {appTheme} from '../../services/storage/theme';
-import {withTheme} from '../../theme/themeHOC';
+import {useOwnTheme} from '../../theme/useOwnTheme';
 
 type ProfileTabParamList = {
   [Routes.Login]: undefined;
@@ -31,16 +31,11 @@ interface ProfileProps {
 
 interface Props extends ProfileProps {
   logOutHandler: () => void;
-  theme: Themes;
   setTheme: (theme: Themes) => void;
 }
 
-const profile: React.FC<Props> = ({
-  navigation,
-  logOutHandler,
-  theme,
-  setTheme,
-}) => {
+const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
+  const {theme, setTheme} = useOwnTheme();
   const {colors} = useTheme();
 
   const chooseTheme = (theme: Themes) => {
@@ -110,6 +105,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<{}, null, Action>) => ({
   logOutHandler: () => dispatch(logoutHandler()),
 });
 
-export const connectedProfile = connect(null, mapDispatchToProps)(profile);
-
-export const Profile = withTheme(connectedProfile);
+export const Profile = connect(null, mapDispatchToProps)(profile);

@@ -27,9 +27,11 @@ export const App = () => {
   }, []);
 
   useEffect(() => {
-    userIsAuth();
-    getTheme();
-    SplashScreen.hide();
+    (async () => {
+      await userIsAuth();
+      await getTheme();
+      await SplashScreen.hide();
+    })();
   }, [userIsAuth]);
 
   if (isLoading) {

@@ -7,7 +7,7 @@ import {MainTabs} from './MainTabs';
 import {LoginStack} from './LoginStack';
 import {AppState} from '../reducers/RootReducer';
 import {darkTheme, lightTheme, Themes} from '../theme/theme';
-import {withTheme} from '../theme/themeHOC';
+import {useOwnTheme} from '../theme/useOwnTheme';
 
 const Stack = createStackNavigator();
 
@@ -20,10 +20,11 @@ export enum Routes {
 
 interface RouterProps {
   isAuth: boolean;
-  theme: Themes;
 }
 
-const router: React.FC<RouterProps> = ({theme, isAuth}) => {
+const router: React.FC<RouterProps> = ({isAuth}) => {
+  const {theme} = useOwnTheme();
+
   return (
     <NavigationContainer theme={theme === Themes.dark ? darkTheme : lightTheme}>
       <Stack.Navigator
@@ -40,6 +41,4 @@ const mapStateToProps = (state: AppState) => ({
   isAuth: state.authReducer.isAuth,
 });
 
-export const connectedRouter = connect(mapStateToProps)(router);
-
-export const Router = withTheme(connectedRouter);
+export const Router = connect(mapStateToProps)(router);
