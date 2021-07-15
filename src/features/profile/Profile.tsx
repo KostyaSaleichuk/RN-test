@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {View, Text, Image} from 'react-native';
 import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
 import {connect} from 'react-redux';
@@ -38,10 +38,12 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
   const {theme, setTheme} = useOwnTheme();
   const {colors} = useTheme();
 
-  const chooseTheme = (theme: Themes) => {
-    appTheme.saveTheme(theme);
-  };
-
+  const chooseTheme = useCallback(
+    theme => {
+      appTheme.saveTheme(theme);
+    },
+    [theme],
+  );
   const logoutHandler = () => {
     logOutHandler();
     navigation.reset({routes: [{name: Routes.Login}]});
@@ -75,10 +77,7 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
           </Text>
           <RadioButton
             isChecked={theme === Themes.light}
-            onPressIn={() => setTheme(Themes.light)}
-            onPress={() => {
-              chooseTheme(theme);
-            }}
+            onPress={() => setTheme(Themes.light)}
           />
         </View>
         <View style={profileStyles.radioContainer}>
@@ -87,13 +86,11 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
           </Text>
           <RadioButton
             isChecked={theme === Themes.dark}
-            onPressIn={() => setTheme(Themes.dark)}
-            onPress={() => {
-              chooseTheme(theme);
-            }}
+            onPress={() => setTheme(Themes.dark)}
           />
         </View>
       </View>
+      {chooseTheme(theme)}
       <View style={profileStyles.buttonContainer}>
         <CustomButton text="Logout" onPress={logoutHandler} />
       </View>
