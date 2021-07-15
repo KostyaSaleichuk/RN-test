@@ -26,6 +26,11 @@ export const App = () => {
     setTheme(theme);
   }, []);
 
+  const saveAndSetTheme = useCallback((theme: Themes) => {
+    setTheme(theme);
+    appTheme.saveTheme(theme);
+  }, []);
+
   useEffect(() => {
     (async () => {
       await userIsAuth();
@@ -39,7 +44,7 @@ export const App = () => {
   }
 
   return (
-    <ThemeProvider value={{theme, setTheme}}>
+    <ThemeProvider value={{theme, setTheme: saveAndSetTheme}}>
       <Provider store={store}>
         <Router />
       </Provider>

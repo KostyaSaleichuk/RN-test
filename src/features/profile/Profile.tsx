@@ -13,20 +13,11 @@ import {logoutHandler} from '../../middlewares/loginThunk';
 import {testData} from '../../services/authService';
 import {Themes} from '../../theme/theme';
 import {RadioButton} from '../../components/radioButton/radioButton';
-import {appTheme} from '../../services/storage/theme';
 import {useOwnTheme} from '../../theme/useOwnTheme';
-
-type ProfileTabParamList = {
-  [Routes.Login]: undefined;
-};
-
-type NavigationProp = MaterialTopTabNavigationProp<
-  ProfileTabParamList,
-  Routes.Login
->;
+import {LoginStackNavigationParams} from '../../navigation/loginStackNavParams';
 
 interface ProfileProps {
-  navigation: NavigationProp;
+  navigation: MaterialTopTabNavigationProp<LoginStackNavigationParams>;
 }
 
 interface Props extends ProfileProps {
@@ -45,13 +36,6 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
   const setDarkTheme = useCallback(() => {
     setTheme(Themes.dark);
   }, [theme]);
-
-  const chooseTheme = useCallback(
-    theme => {
-      appTheme.saveTheme(theme);
-    },
-    [theme],
-  );
 
   const logoutHandler = () => {
     logOutHandler();
@@ -99,7 +83,6 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
           />
         </View>
       </View>
-      {chooseTheme(theme)}
       <View style={profileStyles.buttonContainer}>
         <CustomButton text="Logout" onPress={logoutHandler} />
       </View>

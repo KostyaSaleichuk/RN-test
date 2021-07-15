@@ -11,14 +11,10 @@ import {CustomButton} from '../../components/button/Button';
 import {Input} from '../../components/input/Input';
 import {Routes} from '../../navigation/Router';
 import {tryLogin} from '../../middlewares/loginThunk';
-
-type LoginScreenParamList = {
-  [Routes.Main]: undefined;
-};
-type NavigationProp = StackNavigationProp<LoginScreenParamList, Routes.Main>;
+import {MainTabsNavigationParams} from '../../navigation/mainTabsNavParams';
 
 interface LoginProps {
-  navigation: NavigationProp;
+  navigation: StackNavigationProp<MainTabsNavigationParams, Routes.Main>;
 }
 
 interface Props extends LoginProps {
