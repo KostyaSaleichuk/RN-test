@@ -38,12 +38,21 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
   const {theme, setTheme} = useOwnTheme();
   const {colors} = useTheme();
 
+  const setLightTheme = useCallback(() => {
+    setTheme(Themes.light);
+  }, [theme]);
+
+  const setDarkTheme = useCallback(() => {
+    setTheme(Themes.dark);
+  }, [theme]);
+
   const chooseTheme = useCallback(
     theme => {
       appTheme.saveTheme(theme);
     },
     [theme],
   );
+
   const logoutHandler = () => {
     logOutHandler();
     navigation.reset({routes: [{name: Routes.Login}]});
@@ -77,7 +86,7 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
           </Text>
           <RadioButton
             isChecked={theme === Themes.light}
-            onPress={() => setTheme(Themes.light)}
+            onPress={setLightTheme}
           />
         </View>
         <View style={profileStyles.radioContainer}>
@@ -86,7 +95,7 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
           </Text>
           <RadioButton
             isChecked={theme === Themes.dark}
-            onPress={() => setTheme(Themes.dark)}
+            onPress={setDarkTheme}
           />
         </View>
       </View>
