@@ -1,12 +1,11 @@
 import React from 'react';
-import {TouchableOpacity, Text} from 'react-native';
+import {TouchableOpacity, Text, TouchableOpacityProps} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 import {buttonStyles} from './buttonStyles';
 
-interface ButtonProps {
-  text: string;
-  onPress: () => void;
+interface ButtonProps extends TouchableOpacityProps {
+  text?: string;
 }
 
 export const CustomButton: React.FC<ButtonProps> = props => {

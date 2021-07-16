@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Themes} from './theme';
 
-export interface ThemeContextProps {
+interface ThemeContextProps {
   theme: Themes;
   setTheme: (theme: Themes) => void;
 }

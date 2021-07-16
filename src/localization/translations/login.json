@@ -1,0 +1,23 @@
+{
+    "en": {
+        "enter_your_email": "Enter your email",
+        "enter_your_password": "Enter your password",
+        "login": "Login",
+        "not_valid_email": "Email is not valid",
+        "not_valid_password": "Password must be min 8 characters long"
+    },
+    "ua": {
+        "enter_your_email": "Введіть Вашу ел.пошту",
+        "enter_your_password": "Введіть Ваш пароль",
+        "login": "Вхід",
+        "not_valid_email": "Неправильна електронна пошта",
+        "not_valid_password": "Пароль має бути не коротше за 8 символів"
+    },
+    "ru": {
+        "enter_your_email": "Введите Вашу эл.почту",
+        "enter_your_password": "Введите Ваш пароль",
+        "login": "Вход",
+        "not_valid_email": "Неправильная электронная почта",
+        "not_valid_password": "Пароль должен быть не короче 8 символов"
+    }
+}

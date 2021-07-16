@@ -15,6 +15,8 @@ import {Themes} from '../../theme/theme';
 import {RadioButton} from '../../components/radioButton/radioButton';
 import {useOwnTheme} from '../../theme/useOwnTheme';
 import {LoginStackNavigationParams} from '../../navigation/loginStackNavParams';
+import {Languages} from '../../localization/languages';
+import {useLocalization} from '../../localization/useLocalization';
 
 interface ProfileProps {
   navigation: MaterialTopTabNavigationProp<LoginStackNavigationParams>;
@@ -29,6 +31,8 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
   const {theme, setTheme} = useOwnTheme();
   const {colors} = useTheme();
 
+  const {language, setLanguage} = useLocalization();
+
   const setLightTheme = useCallback(() => {
     setTheme(Themes.light);
   }, [theme]);
@@ -36,6 +40,21 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
   const setDarkTheme = useCallback(() => {
     setTheme(Themes.dark);
   }, [theme]);
+
+  const setEnglish = useCallback(() => {
+    setLanguage(Languages.english);
+    console.log(language);
+  }, [language]);
+
+  const setUkrainian = useCallback(() => {
+    setLanguage(Languages.ukrainian);
+    console.log(language);
+  }, [language]);
+
+  const setRussian = useCallback(() => {
+    setLanguage(Languages.russian);
+    console.log(language);
+  }, [language]);
 
   const logoutHandler = () => {
     logOutHandler();
@@ -80,6 +99,35 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
           <RadioButton
             isChecked={theme === Themes.dark}
             onPress={setDarkTheme}
+          />
+        </View>
+      </View>
+      <View style={profileStyles.languageChangerContainer}>
+        <View style={profileStyles.radioContainer}>
+          <Text style={[profileStyles.text, {color: colors.text}]}>
+            Change language to english
+          </Text>
+          <RadioButton
+            isChecked={language === Languages.english}
+            onPress={setEnglish}
+          />
+        </View>
+        <View style={profileStyles.radioContainer}>
+          <Text style={[profileStyles.text, {color: colors.text}]}>
+            Change language to ukrainian
+          </Text>
+          <RadioButton
+            isChecked={language === Languages.ukrainian}
+            onPress={setUkrainian}
+          />
+        </View>
+        <View style={profileStyles.radioContainer}>
+          <Text style={[profileStyles.text, {color: colors.text}]}>
+            Change language to russian
+          </Text>
+          <RadioButton
+            isChecked={language === Languages.russian}
+            onPress={setRussian}
           />
         </View>
       </View>

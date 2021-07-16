@@ -10,10 +10,14 @@ import {Indicator} from './src/components/ActivityIndicator/activityIndicator';
 import {appTheme} from './src/services/storage/theme';
 import {ThemeProvider} from './src/theme/themeProvider';
 import {Themes} from './src/theme/theme';
+import {appLanguage} from './src/services/storage/language';
+import {LocalizationProvider} from './src/localization/localizationProvider';
+import {Languages} from './src/localization/languages';
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [theme, setTheme] = useState(Themes.light);
+  const [language, setLanguage] = useState(Languages.english);
 
   const userIsAuth = useCallback(async () => {
     const statusAuth = await authentication.getStatusAuth();
@@ -31,10 +35,21 @@ export const App = () => {
     appTheme.saveTheme(theme);
   }, []);
 
+  const getLanguage = useCallback(async () => {
+    const language = await appLanguage.getLanguage();
+    setLanguage(language);
+  }, []);
+
+  const saveAndSetLanguage = useCallback((language: Languages) => {
+    setLanguage(language);
+    appLanguage.saveLanguage(language);
+  }, []);
+
   useEffect(() => {
     (async () => {
       await userIsAuth();
       await getTheme();
+      await getLanguage();
       await SplashScreen.hide();
     })();
   }, [userIsAuth]);
@@ -45,9 +60,11 @@ export const App = () => {
 
   return (
     <ThemeProvider value={{theme, setTheme: saveAndSetTheme}}>
-      <Provider store={store}>
-        <Router />
-      </Provider>
+      <LocalizationProvider value={{language, setLanguage: saveAndSetLanguage}}>
+        <Provider store={store}>
+          <Router />
+        </Provider>
+      </LocalizationProvider>
     </ThemeProvider>
   );
 };
