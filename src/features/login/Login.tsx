@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {Action} from 'redux';
 import {useTheme} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 import {loginStyles} from './loginScreenStyles';
 import {CustomButton} from '../../components/button/Button';
@@ -27,6 +28,8 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
 
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
+
+  const {t, i18n} = useTranslation();
 
   const userIsAuth = useCallback(
     async (credentials: {email: string; password: string}) => {
@@ -60,26 +63,26 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
   return (
     <View style={[loginStyles.container, {backgroundColor: colors.primary}]}>
       <Input
-        placeholder="Enter your Email"
+        placeholder={t('enter_your_email')}
         onChangeText={setInputEmail}
         value={inputEmail}
         keyboardType={'email-address'}
       />
       {validEmail ? null : (
-        <Text style={{color: colors.notification}}>Email is not valid</Text>
+        <Text style={{color: colors.notification}}>{t('not_valid_email')}</Text>
       )}
       <Input
-        placeholder="Enter your password"
+        placeholder={t('enter_your_password')}
         secureTextEntry
         onChangeText={setInputPassword}
         value={inputPassword}
       />
       {validPassword ? null : (
         <Text style={{color: colors.notification}}>
-          Password length must be min 8 characters long
+          {t('not_valid_password')}
         </Text>
       )}
-      <CustomButton text="Login" onPress={loginHandler} />
+      <CustomButton text={t('login')} onPress={loginHandler} />
     </View>
   );
 };

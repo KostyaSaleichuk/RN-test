@@ -1,0 +1,15 @@
+{
+    "translation":{
+        "login": "Вхід",
+        "enter_your_email": "Введіть Вашу ел.пошту",
+        "enter_your_password": "Введіть Ваш пароль",
+        "not_valid_email": "Неправильна електронна пошта",
+        "not_valid_password": "Пароль має бути не коротше за 8 символів",
+        "change_theme_to_light": "Змінити тему на світлу",
+        "change_theme_to_dark": "Змінити тему на темну",
+        "change_language_to_english": "Змінити мову на англійську",
+        "change_language_to_ukrainian": "Змінити мову на українську",
+        "change_language_to_russian": "Змінити мову на російську",
+        "logout": "Вихід"
+    }
+}

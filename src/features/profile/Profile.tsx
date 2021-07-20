@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {Action} from 'redux';
 import {useTheme} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 import {CustomButton} from '../../components/button/Button';
 import {profileStyles} from './profileScreenStyles';
@@ -12,7 +13,7 @@ import {Routes} from '../../navigation/Router';
 import {logoutHandler} from '../../middlewares/loginThunk';
 import {testData} from '../../services/authService';
 import {Themes} from '../../theme/theme';
-import {RadioButton} from '../../components/radioButton/radioButton';
+import {RadioContainer} from '../../components/radioContainer/radioContainer';
 import {useOwnTheme} from '../../theme/useOwnTheme';
 import {LoginStackNavigationParams} from '../../navigation/loginStackNavParams';
 import {Languages} from '../../localization/languages';
@@ -30,7 +31,7 @@ interface Props extends ProfileProps {
 const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
   const {theme, setTheme} = useOwnTheme();
   const {colors} = useTheme();
-
+  const {t, i18n} = useTranslation();
   const {language, setLanguage} = useLocalization();
 
   const setLightTheme = useCallback(() => {
@@ -41,19 +42,19 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
     setTheme(Themes.dark);
   }, [theme]);
 
-  const setEnglish = useCallback(() => {
-    setLanguage(Languages.english);
-    console.log(language);
+  const setEnglish = useCallback(async () => {
+    await i18n.changeLanguage('en');
+    await setLanguage(Languages.english);
   }, [language]);
 
-  const setUkrainian = useCallback(() => {
-    setLanguage(Languages.ukrainian);
-    console.log(language);
+  const setUkrainian = useCallback(async () => {
+    await i18n.changeLanguage('ua');
+    await setLanguage(Languages.ukrainian);
   }, [language]);
 
-  const setRussian = useCallback(() => {
-    setLanguage(Languages.russian);
-    console.log(language);
+  const setRussian = useCallback(async () => {
+    await i18n.changeLanguage('ru');
+    await setLanguage(Languages.russian);
   }, [language]);
 
   const logoutHandler = () => {
@@ -83,56 +84,36 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
         </View>
       </View>
       <View style={profileStyles.themeChangerContainer}>
-        <View style={profileStyles.radioContainer}>
-          <Text style={[profileStyles.text, {color: colors.text}]}>
-            Change theme to light
-          </Text>
-          <RadioButton
-            isChecked={theme === Themes.light}
-            onPress={setLightTheme}
-          />
-        </View>
-        <View style={profileStyles.radioContainer}>
-          <Text style={[profileStyles.text, {color: colors.text}]}>
-            Change theme to dark
-          </Text>
-          <RadioButton
-            isChecked={theme === Themes.dark}
-            onPress={setDarkTheme}
-          />
-        </View>
+        <RadioContainer
+          isChecked={theme === Themes.light}
+          onPress={setLightTheme}
+          text={t('change_theme_to_light')}
+        />
+        <RadioContainer
+          isChecked={theme === Themes.dark}
+          onPress={setDarkTheme}
+          text={t('change_theme_to_dark')}
+        />
       </View>
       <View style={profileStyles.languageChangerContainer}>
-        <View style={profileStyles.radioContainer}>
-          <Text style={[profileStyles.text, {color: colors.text}]}>
-            Change language to english
-          </Text>
-          <RadioButton
-            isChecked={language === Languages.english}
-            onPress={setEnglish}
-          />
-        </View>
-        <View style={profileStyles.radioContainer}>
-          <Text style={[profileStyles.text, {color: colors.text}]}>
-            Change language to ukrainian
-          </Text>
-          <RadioButton
-            isChecked={language === Languages.ukrainian}
-            onPress={setUkrainian}
-          />
-        </View>
-        <View style={profileStyles.radioContainer}>
-          <Text style={[profileStyles.text, {color: colors.text}]}>
-            Change language to russian
-          </Text>
-          <RadioButton
-            isChecked={language === Languages.russian}
-            onPress={setRussian}
-          />
-        </View>
+        <RadioContainer
+          isChecked={language === Languages.english}
+          onPress={setEnglish}
+          text={t('change_language_to_english')}
+        />
+        <RadioContainer
+          isChecked={language === Languages.ukrainian}
+          onPress={setUkrainian}
+          text={t('change_language_to_ukrainian')}
+        />
+        <RadioContainer
+          isChecked={language === Languages.russian}
+          onPress={setRussian}
+          text={t('change_language_to_russian')}
+        />
       </View>
       <View style={profileStyles.buttonContainer}>
-        <CustomButton text="Logout" onPress={logoutHandler} />
+        <CustomButton text={t('logout')} onPress={logoutHandler} />
       </View>
     </View>
   );

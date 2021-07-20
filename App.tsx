@@ -27,7 +27,7 @@ export const App = () => {
 
   const getTheme = useCallback(async () => {
     const theme = await appTheme.getTheme();
-    setTheme(theme);
+    theme !== null ? setTheme(theme) : setTheme(Themes.light);
   }, []);
 
   const saveAndSetTheme = useCallback((theme: Themes) => {
@@ -37,7 +37,7 @@ export const App = () => {
 
   const getLanguage = useCallback(async () => {
     const language = await appLanguage.getLanguage();
-    setLanguage(language);
+    language !== null ? setLanguage(language) : setLanguage(Languages.english);
   }, []);
 
   const saveAndSetLanguage = useCallback((language: Languages) => {

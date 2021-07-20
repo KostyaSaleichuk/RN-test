@@ -13,6 +13,7 @@ export const CustomButton: React.FC<ButtonProps> = props => {
 
   return (
     <TouchableOpacity
+      {...props}
       style={[
         buttonStyles.buttonContainer,
         {backgroundColor: colors.background},

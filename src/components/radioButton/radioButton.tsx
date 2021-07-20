@@ -4,7 +4,7 @@ import {useTheme} from '@react-navigation/native';
 
 import {radioButtonStyles} from './radioButtonStyles';
 
-interface RadioButtonProps extends TouchableOpacityProps {
+export interface RadioButtonProps extends TouchableOpacityProps {
   isChecked: boolean;
 }
 
