@@ -13,6 +13,10 @@ import {Themes} from './src/theme/theme';
 import {appLanguage} from './src/services/storage/language';
 import {LocalizationProvider} from './src/localization/localizationProvider';
 import {Languages} from './src/localization/languages';
+import {localization} from './src/localization/i18n';
+import en from './src/localization/translations/en.json';
+import ua from './src/localization/translations/ua.json';
+import ru from './src/localization/translations/ru.json';
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,8 +30,9 @@ export const App = () => {
   }, []);
 
   const getTheme = useCallback(async () => {
-    const theme = await appTheme.getTheme();
-    theme !== null ? setTheme(theme) : setTheme(Themes.light);
+    const result = await appTheme.getTheme();
+    const theme = result == null ? Themes.light : result;
+    setTheme(theme);
   }, []);
 
   const saveAndSetTheme = useCallback((theme: Themes) => {
@@ -36,8 +41,9 @@ export const App = () => {
   }, []);
 
   const getLanguage = useCallback(async () => {
-    const language = await appLanguage.getLanguage();
-    language !== null ? setLanguage(language) : setLanguage(Languages.english);
+    const result = await appLanguage.getLanguage();
+    const language = result == null ? Languages.english : result;
+    setLanguage(language);
   }, []);
 
   const saveAndSetLanguage = useCallback((language: Languages) => {
@@ -45,11 +51,24 @@ export const App = () => {
     appLanguage.saveLanguage(language);
   }, []);
 
+  const LanguageInitialization = (language: Languages) =>
+    localization.initialization({
+      resources: {en, ua, ru},
+      lng: language || 'en',
+      keySeparator: false,
+      interpolation: {escapeValue: false},
+    });
+
+  useEffect(() => {
+    LanguageInitialization(language);
+  });
+
   useEffect(() => {
     (async () => {
       await userIsAuth();
       await getTheme();
       await getLanguage();
+      await LanguageInitialization(language);
       await SplashScreen.hide();
     })();
   }, [userIsAuth]);

@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {Action} from 'redux';
 import {useTheme} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
 
 import {CustomButton} from '../../components/button/Button';
 import {profileStyles} from './profileScreenStyles';
@@ -18,6 +17,7 @@ import {useOwnTheme} from '../../theme/useOwnTheme';
 import {LoginStackNavigationParams} from '../../navigation/loginStackNavParams';
 import {Languages} from '../../localization/languages';
 import {useLocalization} from '../../localization/useLocalization';
+import {localization} from '../../localization/i18n';
 
 interface ProfileProps {
   navigation: MaterialTopTabNavigationProp<LoginStackNavigationParams>;
@@ -31,8 +31,9 @@ interface Props extends ProfileProps {
 const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
   const {theme, setTheme} = useOwnTheme();
   const {colors} = useTheme();
-  const {t, i18n} = useTranslation();
   const {language, setLanguage} = useLocalization();
+  const changeLanguage = (key: string) => localization.changeLanguage(key);
+  const translate = (key: string) => localization.translate(key);
 
   const setLightTheme = useCallback(() => {
     setTheme(Themes.light);
@@ -43,18 +44,18 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
   }, [theme]);
 
   const setEnglish = useCallback(async () => {
-    await i18n.changeLanguage('en');
-    await setLanguage(Languages.english);
+    await changeLanguage('en');
+    setLanguage(Languages.english);
   }, [language]);
 
   const setUkrainian = useCallback(async () => {
-    await i18n.changeLanguage('ua');
-    await setLanguage(Languages.ukrainian);
+    await changeLanguage('ua');
+    setLanguage(Languages.ukrainian);
   }, [language]);
 
   const setRussian = useCallback(async () => {
-    await i18n.changeLanguage('ru');
-    await setLanguage(Languages.russian);
+    await changeLanguage('ru');
+    setLanguage(Languages.russian);
   }, [language]);
 
   const logoutHandler = () => {
@@ -87,33 +88,33 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
         <RadioContainer
           isChecked={theme === Themes.light}
           onPress={setLightTheme}
-          text={t('change_theme_to_light')}
+          text={translate('change_theme_to_light')}
         />
         <RadioContainer
           isChecked={theme === Themes.dark}
           onPress={setDarkTheme}
-          text={t('change_theme_to_dark')}
+          text={translate('change_theme_to_dark')}
         />
       </View>
       <View style={profileStyles.languageChangerContainer}>
         <RadioContainer
           isChecked={language === Languages.english}
           onPress={setEnglish}
-          text={t('change_language_to_english')}
+          text={translate('change_language_to_english')}
         />
         <RadioContainer
           isChecked={language === Languages.ukrainian}
           onPress={setUkrainian}
-          text={t('change_language_to_ukrainian')}
+          text={translate('change_language_to_ukrainian')}
         />
         <RadioContainer
           isChecked={language === Languages.russian}
           onPress={setRussian}
-          text={t('change_language_to_russian')}
+          text={translate('change_language_to_russian')}
         />
       </View>
       <View style={profileStyles.buttonContainer}>
-        <CustomButton text={t('logout')} onPress={logoutHandler} />
+        <CustomButton text={translate('logout')} onPress={logoutHandler} />
       </View>
     </View>
   );

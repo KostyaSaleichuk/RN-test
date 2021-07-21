@@ -8,18 +8,19 @@ interface ButtonProps extends TouchableOpacityProps {
   text?: string;
 }
 
-export const CustomButton: React.FC<ButtonProps> = props => {
+export const CustomButton: React.FC<ButtonProps> = ({style, text, ...rest}) => {
   const {colors} = useTheme();
 
   return (
     <TouchableOpacity
-      {...props}
+      {...rest}
       style={[
         buttonStyles.buttonContainer,
         {backgroundColor: colors.background},
+        style,
       ]}
-      onPress={props.onPress}>
-      <Text style={{color: colors.text}}>{props.text}</Text>
+      onPress={rest.onPress}>
+      <Text style={{color: colors.text}}>{text}</Text>
     </TouchableOpacity>
   );
 };

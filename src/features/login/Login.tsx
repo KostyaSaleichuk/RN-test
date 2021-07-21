@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {Action} from 'redux';
 import {useTheme} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
 
 import {loginStyles} from './loginScreenStyles';
 import {CustomButton} from '../../components/button/Button';
@@ -13,6 +12,7 @@ import {Input} from '../../components/input/Input';
 import {Routes} from '../../navigation/Router';
 import {tryLogin} from '../../middlewares/loginThunk';
 import {MainStackNavigationParams} from '../../navigation/mainStackNavParams';
+import {localization} from '../../localization/i18n';
 
 interface LoginProps {
   navigation: StackNavigationProp<MainStackNavigationParams, Routes.Main>;
@@ -29,7 +29,7 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
 
-  const {t, i18n} = useTranslation();
+  const translate = (key: string) => localization.translate(key);
 
   const userIsAuth = useCallback(
     async (credentials: {email: string; password: string}) => {
@@ -63,26 +63,28 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
   return (
     <View style={[loginStyles.container, {backgroundColor: colors.primary}]}>
       <Input
-        placeholder={t('enter_your_email')}
+        placeholder={translate('enter_your_email')}
         onChangeText={setInputEmail}
         value={inputEmail}
         keyboardType={'email-address'}
       />
       {validEmail ? null : (
-        <Text style={{color: colors.notification}}>{t('not_valid_email')}</Text>
+        <Text style={{color: colors.notification}}>
+          {translate('not_valid_email')}
+        </Text>
       )}
       <Input
-        placeholder={t('enter_your_password')}
+        placeholder={translate('enter_your_password')}
         secureTextEntry
         onChangeText={setInputPassword}
         value={inputPassword}
       />
       {validPassword ? null : (
         <Text style={{color: colors.notification}}>
-          {t('not_valid_password')}
+          {translate('not_valid_password')}
         </Text>
       )}
-      <CustomButton text={t('login')} onPress={loginHandler} />
+      <CustomButton text={translate('login')} onPress={loginHandler} />
     </View>
   );
 };
