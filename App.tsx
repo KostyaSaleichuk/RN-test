@@ -13,10 +13,7 @@ import {Themes} from './src/theme/theme';
 import {appLanguage} from './src/services/storage/language';
 import {LocalizationProvider} from './src/localization/localizationProvider';
 import {Languages} from './src/localization/languages';
-import {localization} from './src/localization/i18n';
-import en from './src/localization/translations/en.json';
-import ua from './src/localization/translations/ua.json';
-import ru from './src/localization/translations/ru.json';
+import {languageInitialization} from './src/localization/languageInitialization';
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,9 +27,8 @@ export const App = () => {
   }, []);
 
   const getTheme = useCallback(async () => {
-    const result = await appTheme.getTheme();
-    const theme = result == null ? Themes.light : result;
-    setTheme(theme);
+    const savedTheme = await appTheme.getTheme();
+    setTheme(savedTheme || Themes.light);
   }, []);
 
   const saveAndSetTheme = useCallback((theme: Themes) => {
@@ -41,9 +37,8 @@ export const App = () => {
   }, []);
 
   const getLanguage = useCallback(async () => {
-    const result = await appLanguage.getLanguage();
-    const language = result == null ? Languages.english : result;
-    setLanguage(language);
+    const savedLanguage = await appLanguage.getLanguage();
+    setLanguage(savedLanguage || Languages.english);
   }, []);
 
   const saveAndSetLanguage = useCallback((language: Languages) => {
@@ -51,16 +46,8 @@ export const App = () => {
     appLanguage.saveLanguage(language);
   }, []);
 
-  const LanguageInitialization = (language: Languages) =>
-    localization.initialization({
-      resources: {en, ua, ru},
-      lng: language || 'en',
-      keySeparator: false,
-      interpolation: {escapeValue: false},
-    });
-
   useEffect(() => {
-    LanguageInitialization(language);
+    languageInitialization.InitLanguage(language);
   });
 
   useEffect(() => {
@@ -68,7 +55,7 @@ export const App = () => {
       await userIsAuth();
       await getTheme();
       await getLanguage();
-      await LanguageInitialization(language);
+      await languageInitialization.InitLanguage(language);
       await SplashScreen.hide();
     })();
   }, [userIsAuth]);

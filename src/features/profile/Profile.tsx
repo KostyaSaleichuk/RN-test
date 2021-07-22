@@ -17,7 +17,9 @@ import {useOwnTheme} from '../../theme/useOwnTheme';
 import {LoginStackNavigationParams} from '../../navigation/loginStackNavParams';
 import {Languages} from '../../localization/languages';
 import {useLocalization} from '../../localization/useLocalization';
-import {localization} from '../../localization/i18n';
+import {localization} from '../../localization/localization';
+import {PickerContainer} from '../../components/picker/PickerContainer';
+import {PickerItem} from '../../components/picker/PickerItem';
 
 interface ProfileProps {
   navigation: MaterialTopTabNavigationProp<LoginStackNavigationParams>;
@@ -32,8 +34,8 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
   const {theme, setTheme} = useOwnTheme();
   const {colors} = useTheme();
   const {language, setLanguage} = useLocalization();
-  const changeLanguage = (key: string) => localization.changeLanguage(key);
-  const translate = (key: string) => localization.translate(key);
+  const changeLanguage = (key: Languages) => localization.changeLanguage(key);
+  const translate = (textKey: string) => localization.translate(textKey);
 
   const setLightTheme = useCallback(() => {
     setTheme(Themes.light);
@@ -43,20 +45,13 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
     setTheme(Themes.dark);
   }, [theme]);
 
-  const setEnglish = useCallback(async () => {
-    await changeLanguage('en');
-    setLanguage(Languages.english);
-  }, [language]);
-
-  const setUkrainian = useCallback(async () => {
-    await changeLanguage('ua');
-    setLanguage(Languages.ukrainian);
-  }, [language]);
-
-  const setRussian = useCallback(async () => {
-    await changeLanguage('ru');
-    setLanguage(Languages.russian);
-  }, [language]);
+  const pickLanguage = useCallback(
+    async language => {
+      await changeLanguage(language);
+      setLanguage(language);
+    },
+    [language],
+  );
 
   const logoutHandler = () => {
     logOutHandler();
@@ -85,33 +80,35 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
         </View>
       </View>
       <View style={profileStyles.themeChangerContainer}>
+        <Text style={[profileStyles.text, {color: colors.text}]}>
+          {translate('choose_theme')}
+        </Text>
         <RadioContainer
           isChecked={theme === Themes.light}
           onPress={setLightTheme}
-          text={translate('change_theme_to_light')}
+          text={translate('light')}
         />
         <RadioContainer
           isChecked={theme === Themes.dark}
           onPress={setDarkTheme}
-          text={translate('change_theme_to_dark')}
+          text={translate('dark')}
         />
       </View>
       <View style={profileStyles.languageChangerContainer}>
-        <RadioContainer
-          isChecked={language === Languages.english}
-          onPress={setEnglish}
-          text={translate('change_language_to_english')}
-        />
-        <RadioContainer
-          isChecked={language === Languages.ukrainian}
-          onPress={setUkrainian}
-          text={translate('change_language_to_ukrainian')}
-        />
-        <RadioContainer
-          isChecked={language === Languages.russian}
-          onPress={setRussian}
-          text={translate('change_language_to_russian')}
-        />
+        <Text style={[profileStyles.text, {color: colors.text}]}>
+          {translate('choose_language')}
+        </Text>
+        <PickerContainer
+          selectedValue={language}
+          onValueChange={itemValue => pickLanguage(itemValue)}
+          mode="dropdown">
+          <PickerItem label={translate('english')} value={Languages.english} />
+          <PickerItem
+            label={translate('ukrainian')}
+            value={Languages.ukrainian}
+          />
+          <PickerItem label={translate('russian')} value={Languages.russian} />
+        </PickerContainer>
       </View>
       <View style={profileStyles.buttonContainer}>
         <CustomButton text={translate('logout')} onPress={logoutHandler} />

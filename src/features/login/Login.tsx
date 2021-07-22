@@ -12,7 +12,7 @@ import {Input} from '../../components/input/Input';
 import {Routes} from '../../navigation/Router';
 import {tryLogin} from '../../middlewares/loginThunk';
 import {MainStackNavigationParams} from '../../navigation/mainStackNavParams';
-import {localization} from '../../localization/i18n';
+import {localization} from '../../localization/localization';
 
 interface LoginProps {
   navigation: StackNavigationProp<MainStackNavigationParams, Routes.Main>;

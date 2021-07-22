@@ -1,11 +1,14 @@
 import i18n, {Callback, InitOptions} from 'i18next';
 import {initReactI18next} from 'react-i18next';
 
-class Localization {
-  public changeLanguage = async (key: string) => await i18n.changeLanguage(key);
+import {Languages} from './languages';
 
-  public translate = (key: string) => {
-    const translation = i18n.t(key);
+class Localization {
+  public changeLanguage = async (key: Languages) =>
+    await i18n.changeLanguage(key);
+
+  public translate = (textKey: string) => {
+    const translation = i18n.t(textKey);
     return translation as string;
   };
 

@@ -5,11 +5,13 @@
         "enter_your_password": "Введіть Ваш пароль",
         "not_valid_email": "Неправильна електронна пошта",
         "not_valid_password": "Пароль має бути не коротше за 8 символів",
-        "change_theme_to_light": "Змінити тему на світлу",
-        "change_theme_to_dark": "Змінити тему на темну",
-        "change_language_to_english": "Змінити мову на англійську",
-        "change_language_to_ukrainian": "Змінити мову на українську",
-        "change_language_to_russian": "Змінити мову на російську",
+        "light": "Світла",
+        "dark": "Темна",
+        "choose_theme": "Обрати тему",
+        "choose_language": "Обрати мову",
+        "english": "Англійська",
+        "ukrainian": "Українська",
+        "russian": "Російська",
         "logout": "Вихід"
     }
 }

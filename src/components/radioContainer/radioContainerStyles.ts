@@ -9,7 +9,7 @@ export const RadioContainerStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '70%',
+    width: '55%',
     height: '15%',
   },
 });

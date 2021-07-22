@@ -43,13 +43,6 @@ export const profileStyles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: '20%',
-    justifyContent: 'space-evenly',
-  },
-  radioContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '70%',
-    height: '15%',
+    justifyContent: 'center',
   },
 });

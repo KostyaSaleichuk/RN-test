@@ -5,11 +5,13 @@
         "enter_your_password": "Enter your password",
         "not_valid_email": "Email is not valid",
         "not_valid_password": "Password must be min 8 characters long",
-        "change_theme_to_light": "Change theme to light",
-        "change_theme_to_dark": "Change theme to dark",
-        "change_language_to_english": "Change language to english",
-        "change_language_to_ukrainian": "Change language to ukrainian",
-        "change_language_to_russian": "Change language to russian",
+        "light": "Light",
+        "dark": "Dark",
+        "choose_theme": "Choose theme",
+        "choose_language": "Choose language",
+        "english": "English",
+        "ukrainian": "Ukrainian",
+        "russian": "Russian",
         "logout": "Logout"
     }
 }
