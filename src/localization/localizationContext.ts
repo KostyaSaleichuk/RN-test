@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Languages} from './languages';
+import {Languages} from './localization';
 
 interface LocalizationContextProps {
   language: Languages;

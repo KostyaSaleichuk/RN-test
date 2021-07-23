@@ -16,7 +16,7 @@ import {Themes} from '../../theme/theme';
 import {RadioContainer} from '../../components/radioContainer/radioContainer';
 import {useOwnTheme} from '../../theme/useOwnTheme';
 import {LoginStackNavigationParams} from '../../navigation/loginStackNavParams';
-import {Languages} from '../../localization/languages';
+import {Languages} from '../../localization/localization';
 import {useLocalization} from '../../localization/useLocalization';
 import {localization} from '../../localization/localization';
 

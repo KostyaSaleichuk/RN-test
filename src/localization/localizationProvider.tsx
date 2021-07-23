@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {LocalizationContext} from './localizationContext';
-import {Languages} from './languages';
+import {Languages} from './localization';
 
 interface LocalizationProviderProps {
   value: {

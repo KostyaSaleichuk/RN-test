@@ -10,10 +10,8 @@ import {Indicator} from './src/components/ActivityIndicator/activityIndicator';
 import {appTheme} from './src/services/storage/theme';
 import {ThemeProvider} from './src/theme/themeProvider';
 import {Themes} from './src/theme/theme';
-import {appLanguage} from './src/services/storage/language';
 import {LocalizationProvider} from './src/localization/localizationProvider';
-import {Languages} from './src/localization/languages';
-import {InitLanguage} from './src/localization/localization';
+import {localization, Languages} from './src/localization/localization';
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,17 +35,17 @@ export const App = () => {
   }, []);
 
   const getLanguage = useCallback(async () => {
-    const savedLanguage = await appLanguage.getLanguage();
+    const savedLanguage = await localization.getLanguage();
     setLanguage(savedLanguage || Languages.english);
   }, []);
 
   const saveAndSetLanguage = useCallback((language: Languages) => {
     setLanguage(language);
-    appLanguage.saveLanguage(language);
+    localization.saveLanguage(language);
   }, []);
 
   useEffect(() => {
-    InitLanguage(language);
+    localization.InitLanguage(language);
   });
 
   useEffect(() => {
@@ -55,7 +53,7 @@ export const App = () => {
       await userIsAuth();
       await getTheme();
       await getLanguage();
-      await InitLanguage(language);
+      await localization.InitLanguage(language);
       await SplashScreen.hide();
     })();
   }, [userIsAuth]);
