@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {ThunkDispatch} from 'redux-thunk';
 import {Action} from 'redux';
 import {useTheme} from '@react-navigation/native';
+import {Picker} from '@react-native-picker/picker';
 
 import {CustomButton} from '../../components/button/Button';
 import {profileStyles} from './profileScreenStyles';
@@ -18,8 +19,6 @@ import {LoginStackNavigationParams} from '../../navigation/loginStackNavParams';
 import {Languages} from '../../localization/languages';
 import {useLocalization} from '../../localization/useLocalization';
 import {localization} from '../../localization/localization';
-import {PickerContainer} from '../../components/picker/PickerContainer';
-import {PickerItem} from '../../components/picker/PickerItem';
 
 interface ProfileProps {
   navigation: MaterialTopTabNavigationProp<LoginStackNavigationParams>;
@@ -34,8 +33,6 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
   const {theme, setTheme} = useOwnTheme();
   const {colors} = useTheme();
   const {language, setLanguage} = useLocalization();
-  const changeLanguage = (key: Languages) => localization.changeLanguage(key);
-  const translate = (textKey: string) => localization.translate(textKey);
 
   const setLightTheme = useCallback(() => {
     setTheme(Themes.light);
@@ -47,7 +44,7 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
 
   const pickLanguage = useCallback(
     async language => {
-      await changeLanguage(language);
+      await localization.changeLanguage(language);
       setLanguage(language);
     },
     [language],
@@ -81,37 +78,47 @@ const profile: React.FC<Props> = ({navigation, logOutHandler}) => {
       </View>
       <View style={profileStyles.themeChangerContainer}>
         <Text style={[profileStyles.text, {color: colors.text}]}>
-          {translate('choose_theme')}
+          {localization.translate('choose_theme')}
         </Text>
         <RadioContainer
           isChecked={theme === Themes.light}
           onPress={setLightTheme}
-          text={translate('light')}
+          text={localization.translate('light')}
         />
         <RadioContainer
           isChecked={theme === Themes.dark}
           onPress={setDarkTheme}
-          text={translate('dark')}
+          text={localization.translate('dark')}
         />
       </View>
       <View style={profileStyles.languageChangerContainer}>
         <Text style={[profileStyles.text, {color: colors.text}]}>
-          {translate('choose_language')}
+          {localization.translate('choose_language')}
         </Text>
-        <PickerContainer
+        <Picker
           selectedValue={language}
           onValueChange={itemValue => pickLanguage(itemValue)}
-          mode="dropdown">
-          <PickerItem label={translate('english')} value={Languages.english} />
-          <PickerItem
-            label={translate('ukrainian')}
+          mode="dropdown"
+          style={[profileStyles.pickerContainer, {color: colors.text}]}>
+          <Picker.Item
+            label={localization.translate('english')}
+            value={Languages.english}
+          />
+          <Picker.Item
+            label={localization.translate('ukrainian')}
             value={Languages.ukrainian}
           />
-          <PickerItem label={translate('russian')} value={Languages.russian} />
-        </PickerContainer>
+          <Picker.Item
+            label={localization.translate('russian')}
+            value={Languages.russian}
+          />
+        </Picker>
       </View>
       <View style={profileStyles.buttonContainer}>
-        <CustomButton text={translate('logout')} onPress={logoutHandler} />
+        <CustomButton
+          text={localization.translate('logout')}
+          onPress={logoutHandler}
+        />
       </View>
     </View>
   );

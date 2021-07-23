@@ -13,7 +13,7 @@ import {Themes} from './src/theme/theme';
 import {appLanguage} from './src/services/storage/language';
 import {LocalizationProvider} from './src/localization/localizationProvider';
 import {Languages} from './src/localization/languages';
-import {languageInitialization} from './src/localization/languageInitialization';
+import {InitLanguage} from './src/localization/localization';
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +47,7 @@ export const App = () => {
   }, []);
 
   useEffect(() => {
-    languageInitialization.InitLanguage(language);
+    InitLanguage(language);
   });
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export const App = () => {
       await userIsAuth();
       await getTheme();
       await getLanguage();
-      await languageInitialization.InitLanguage(language);
+      await InitLanguage(language);
       await SplashScreen.hide();
     })();
   }, [userIsAuth]);

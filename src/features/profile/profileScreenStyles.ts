@@ -45,4 +45,8 @@ export const profileStyles = StyleSheet.create({
     height: '20%',
     justifyContent: 'center',
   },
+  pickerContainer: {
+    width: '60%',
+    height: 20,
+  },
 });

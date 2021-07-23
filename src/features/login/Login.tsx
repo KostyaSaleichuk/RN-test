@@ -29,8 +29,6 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
 
-  const translate = (key: string) => localization.translate(key);
-
   const userIsAuth = useCallback(
     async (credentials: {email: string; password: string}) => {
       const statusAuth = tryLogin(credentials);
@@ -63,28 +61,31 @@ const login: React.FC<Props> = ({navigation, tryLogin}) => {
   return (
     <View style={[loginStyles.container, {backgroundColor: colors.primary}]}>
       <Input
-        placeholder={translate('enter_your_email')}
+        placeholder={localization.translate('enter_your_email')}
         onChangeText={setInputEmail}
         value={inputEmail}
         keyboardType={'email-address'}
       />
       {validEmail ? null : (
         <Text style={{color: colors.notification}}>
-          {translate('not_valid_email')}
+          {localization.translate('not_valid_email')}
         </Text>
       )}
       <Input
-        placeholder={translate('enter_your_password')}
+        placeholder={localization.translate('enter_your_password')}
         secureTextEntry
         onChangeText={setInputPassword}
         value={inputPassword}
       />
       {validPassword ? null : (
         <Text style={{color: colors.notification}}>
-          {translate('not_valid_password')}
+          {localization.translate('not_valid_password')}
         </Text>
       )}
-      <CustomButton text={translate('login')} onPress={loginHandler} />
+      <CustomButton
+        text={localization.translate('login')}
+        onPress={loginHandler}
+      />
     </View>
   );
 };
