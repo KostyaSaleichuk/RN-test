@@ -45,7 +45,7 @@ export const App = () => {
   }, []);
 
   useEffect(() => {
-    localization.InitLanguage(language);
+    localization.initLanguage(language);
   });
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export const App = () => {
       await userIsAuth();
       await getTheme();
       await getLanguage();
-      await localization.InitLanguage(language);
+      await localization.initLanguage(language);
       await SplashScreen.hide();
     })();
   }, [userIsAuth]);

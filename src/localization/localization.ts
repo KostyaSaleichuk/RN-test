@@ -22,7 +22,7 @@ class Localization {
     return translation as string;
   };
 
-  public InitLanguage = async (language: Languages) =>
+  public initLanguage = async (language: Languages) =>
     await i18n.use(initReactI18next).init({
       resources: {en, ua, ru},
       lng: language || Languages.english,
