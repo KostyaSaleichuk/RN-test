@@ -22,12 +22,8 @@ class Localization {
     return translation as string;
   };
 
-  public initialization = async (options: InitOptions, callback?: Callback) => {
-    await i18n.use(initReactI18next).init({...options}, callback);
-  };
-
   public InitLanguage = async (language: Languages) =>
-    await localization.initialization({
+    await i18n.use(initReactI18next).init({
       resources: {en, ua, ru},
       lng: language || Languages.english,
       keySeparator: false,
